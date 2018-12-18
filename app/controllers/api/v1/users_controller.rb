@@ -1,5 +1,14 @@
 class Api::V1::UsersController < ApplicationController
 
+  def show
+    user = User.find(user_params[:id])
+    if user
+      render json: UserSerializer.new(user).serialized_json
+    else
+      render json: {"error": "User not found"}
+    end
+  end
+
   def new
     user = User.new(user_params)
     if user.save
@@ -12,6 +21,12 @@ class Api::V1::UsersController < ApplicationController
   private
   
     def user_params
-      params.permit(:email, :first_name, :last_name, :role, :password, :password_confirmation)
+      params.permit(:id,
+                    :email,
+                    :first_name, 
+                    :last_name, 
+                    :role,
+                    :password,
+                    :password_confirmation)
     end
 end
