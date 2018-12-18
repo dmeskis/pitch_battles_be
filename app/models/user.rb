@@ -6,5 +6,6 @@ class User < ApplicationRecord
                         :last_name,
                         :password,
                         :role
-                         
+  has_many :usersklasses
+  has_many :klasses, through: :usersklasses
 end
