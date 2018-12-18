@@ -4,6 +4,8 @@ class Klass < ApplicationRecord
   before_save :create_class_key
   has_many :usersklasses
   has_many :users, through: :usersklasses
+  has_many :klassesgames
+  has_many :games, through: :klassesgames
 
   private
 
