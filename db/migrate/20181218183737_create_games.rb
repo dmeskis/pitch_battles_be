@@ -7,6 +7,7 @@ class CreateGames < ActiveRecord::Migration[5.2]
       t.integer :level_three_duration
       t.integer :level_four_duration
       t.integer :remaining_life
+      t.references :user, foreign_key: true
 
       t.timestamps
     end
