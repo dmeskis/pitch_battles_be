@@ -5,6 +5,18 @@ RSpec.describe Game, type: :model do
     game = create(:game)
     Game.where(total_duration: game.total_duration).should exist
   end
+  describe 'attributes' do
+    it 'has attributes' do
+      game = create(:game)
+      expect(game.attributes).to include("total_duration")
+      expect(game.attributes).to include("level_one_duration")
+      expect(game.attributes).to include("level_two_duration")
+      expect(game.attributes).to include("level_three_duration")
+      expect(game.attributes).to include("level_four_duration")
+      expect(game.attributes).to include("remaining_life")
+      expect(game.attributes).to include("user_id")
+    end
+  end
   describe 'validations' do
     it { should validate_presence_of :total_duration }
     it { should validate_presence_of :remaining_life }

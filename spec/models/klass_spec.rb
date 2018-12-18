@@ -9,6 +9,12 @@ RSpec.describe Klass, type: :model do
     klass = create(:klass)
     expect(klass.class_key).to_not be(nil)
   end
+  describe 'attributes' do
+    it 'has attributes' do
+      klass = create(:klass)
+      expect(klass.attributes).to include("name")
+    end
+  end
   describe 'validations' do
     it { should validate_presence_of :name }
     it { should validate_uniqueness_of :class_key}
