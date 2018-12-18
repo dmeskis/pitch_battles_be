@@ -17,12 +17,15 @@ describe 'user api', :type => :request do
 
     post "/api/v1/users", :params => body
 
+    parsed = JSON.parse(response.body)
+
     expect(response).to be_successful
+    expect(parsed).to eq("success" => "Account successfully created!")
     expect(User.count).to eq(1)
     user = User.first
     expect(user.first_name).to eq("billy")
     expect(user.last_name).to eq("bob")
-    expect(user.role).to eq("0")
+    expect(user.role).to eq(0)
   end
 end
 
