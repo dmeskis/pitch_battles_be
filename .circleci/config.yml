@@ -119,7 +119,7 @@ jobs:
           name: Fetch origin
           command: |
             git fetch origin && git checkout staging && git merge development
-            
+
   stagingtest:
     docker:
       # specify the version you desire here
@@ -185,7 +185,7 @@ workflows:
       #this runs the tests
       - deploymenttest
       - mergestaging:
-          require:
+          requires:
             - deploymenttest
       - stagingtest
       - stagingdeploy:
