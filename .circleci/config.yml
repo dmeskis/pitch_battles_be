@@ -4,58 +4,75 @@
 #
 version: 2
 jobs:
-  build:
+  # this is the actual deployment process
+  deploy:
     docker:
       # specify the version you desire here
        - image: circleci/ruby:2.4.1-node-browsers
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
-    working_directory: ~/repo
 
     steps:
       - checkout
+      - run:
+          name: Deploy Master to Heroku
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
+  # this is the test process
+  test:
+    docker:
+      # specify the version you desire here
+       - image: circleci/ruby:2.4.1-node-browsers
+         environment:
+           - RAILS_ENV: test
+           - PGHOST: 127.0.0.1
+           - PGUSER: dylanmeskis
 
-      # Download and cache dependencies
+       - image: circleci/postgres:10.4
+         environment:
+         - POSTGRES_USER: dylanmeskis
+         - POSTGRES_DB: pitch_battles_be_test
+         - POSTGRES_PASSWORD: ""
+
+    steps:
+      - checkout
+      # this restores cache if it exists in the same state
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
+            - bundle-install-{{ checksum "Gemfile.lock" }}
+            - bundle-install-
+      # runs using if cache exists, this runs bundle install and saves it to a specific file (vendor/bundle)
       - run:
           name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
+          command: bundle install --path vendor/bundle
 
+      # this saves the cache
       - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-        
-      # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+          key: bundle-install-{{ checksum "Gemfile.lock" }}
+          paths: vendor/bundle
 
-      # run tests!
+      - run:
+          name: create and migrate db
+          command: bundle exec rake db:{create,migrate}
+
+      # this runs the tests!
       - run:
           name: run tests
-          command: |
-            mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-            
-            bundle exec rspec --format progress \
-                            --format RspecJunitFormatter \
-                            --out /tmp/test-results/rspec.xml \
-                            --format progress \
-                            $TEST_FILES
+          command: rspec
 
-      # collect reports
-      - store_test_results:
-          path: /tmp/test-results
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+      - run:
+          name: lint
+          command: "gem install rubocop && rubocop --fail-level error"
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      #this runs the tests
+      - test
+      - deploy:
+          requires:
+            #this prevents anything from deploying if the tests don't pass
+            - test
+            #this allows deployment to Heroku from master if the tests pass
+          filters:
+            branches:
+              only: master
