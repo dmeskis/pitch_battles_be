@@ -14,6 +14,7 @@ RSpec.describe Klass, type: :model do
     it { should validate_uniqueness_of :class_key}
   end
   describe 'relationships' do
-    it { should have_many(:users)}
+    it { should have_many :users}
+    it { should have_many :games}
   end
 end
