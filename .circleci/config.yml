@@ -132,7 +132,7 @@ workflows:
 
           filters:
             branches:
-              only: master
+              only: staging
       - test:
           requires:
             - stagingdeploy
