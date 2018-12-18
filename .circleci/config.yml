@@ -183,10 +183,10 @@ workflows:
   build_and_test:
     jobs:
       #this runs the tests
-      - deploymenttest
+      - developmenttest
       - mergestaging:
           requires:
-            - deploymenttest
+            - developmenttest
       - stagingtest
       - stagingdeploy:
           requires:
