@@ -118,7 +118,7 @@ jobs:
       - run:
           name: Fetch origin
           command: |
-            git fetch origin && git checkout staging && git merge development
+            git fetch origin && git checkout staging && git merge development && git push origin staging
 
   stagingtest:
     docker:
