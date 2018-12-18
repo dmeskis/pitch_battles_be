@@ -2,6 +2,8 @@ class Klass < ApplicationRecord
   validates_presence_of :name
   validates_uniqueness_of :class_key
   before_save :create_class_key
+  has_many :usersklasses
+  has_many :users, through: :usersklasses
 
   private
 
