@@ -116,7 +116,7 @@ jobs:
     steps:
       - add_ssh_keys:
             fingerprints:
-              - "db:0b:fe:27:8e:f4:c5:c8:ac:c5:d2:ec:e5:77:1e:a9"
+              - "fc:a9:c7:6f:e4:97:ea:bb:8b:67:5d:fd:b5:f0:40:7"
       - checkout
       - run:
           name: Fetch origin
