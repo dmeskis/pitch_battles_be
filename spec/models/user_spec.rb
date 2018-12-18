@@ -11,5 +11,6 @@ RSpec.describe User, type: :model do
   end
   describe 'relationships' do
     it { should have_many(:klasses)}
+    it { should have_many(:games)}
   end
 end

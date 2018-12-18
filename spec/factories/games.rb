@@ -6,5 +6,6 @@ FactoryBot.define do
     level_three_duration { Faker::Number.number(5) }
     level_four_duration { Faker::Number.number(5) }
     remaining_life { Faker::Number.between(0, 3) }
+    user
   end
 end

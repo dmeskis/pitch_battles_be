@@ -8,4 +8,5 @@ class User < ApplicationRecord
                         :role
   has_many :usersklasses
   has_many :klasses, through: :usersklasses
+  has_many :games
 end
