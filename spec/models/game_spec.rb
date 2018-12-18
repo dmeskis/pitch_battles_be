@@ -9,4 +9,7 @@ RSpec.describe Game, type: :model do
     it { should validate_presence_of :total_duration }
     it { should validate_presence_of :remaining_life }
   end
+  describe 'relationships' do
+    it { should belong_to :user}
+  end
 end
