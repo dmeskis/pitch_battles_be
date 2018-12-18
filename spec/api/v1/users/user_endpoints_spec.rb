@@ -59,5 +59,12 @@ describe 'user api', :type => :request do
       expect(body["data"]["type"]).to eq("user")
       expect(body["data"]["attributes"].keys).to contain_exactly('email', 'first_name', 'last_name')
     end
+    it 'does not return a users data which does not exit' do
+      get "/api/v1/users/-1"
+
+      body = JSON.parse(response.body)
+      expect(response.status).to eq(404)
+      expect(body["error"]).to eq("User not found.")
+    end
   end
 end

@@ -1,11 +1,11 @@
 class Api::V1::UsersController < ApplicationController
 
   def show
-    user = User.find(user_params[:id])
+    user = User.where(id: user_params[:id]).first
     if user
-      render json: UserSerializer.new(user).serialized_json
+      render json: UserSerializer.new(user).serialized_json, status: 200
     else
-      render json: {"error": "User not found"}
+      render json: {"error": "User not found."}, status: 404
     end
   end
 
