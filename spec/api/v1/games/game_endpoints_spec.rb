@@ -1,6 +1,19 @@
 require 'rails_helper'
 
 describe 'game api', :type => :request do
+  describe 'get' do
+    it 'can show a single game' do 
+      game = create(:game)
+
+      get "/api/v1/games/#{game.id}"
+
+      body = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+      expect(body["data"]["attributes"]["total_duration"]).to eq(game.total_duration)
+    end
+  end
   describe 'post' do
     it 'can create a new game' do
       user = create(:user)
