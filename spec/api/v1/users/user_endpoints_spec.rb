@@ -51,7 +51,6 @@ describe 'user api', :type => :request do
       get "/api/v1/users/#{user.id}"
 
       body = JSON.parse(response.body)
-      
       expect(response).to be_successful
       expect(response.status).to eq(200)
       expect(body.keys).to contain_exactly('data')
@@ -97,6 +96,21 @@ describe 'user api', :type => :request do
     
       expect(response.status).to eq(400)
       expect(body["error"]).to eq("Updating account failed. Please try again.")
+    end
+  end
+  describe 'users games' do
+    it 'can get all user games' do 
+      game = create(:game)
+      user = User.find(game.user_id)
+      4.times do
+        create(:game, user_id: user.id)
+      end
+      get "/api/v1/users/#{user.id}/games"
+      body = JSON.parse(response.body)
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+      expect(body["data"]["attributes"]["games"]["data"].count).to eq(5)
+      expect(body["data"]["attributes"]["games"]["data"][0]["id"]).to eq(game.id.to_s)
     end
   end
 end
