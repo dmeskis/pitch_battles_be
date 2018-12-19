@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :badge do
-    name { "MyString" }
-    description { "MyString" }
+    name { Faker::LeagueOfLegends.rank }
+    description { Faker::LeagueOfLegends.quote }
   end
 end
