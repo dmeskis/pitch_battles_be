@@ -13,8 +13,12 @@ describe 'badge api', :type => :request do
       expect(response.status).to eq(200)
       expect(body["data"]["attributes"]["badges"]["data"][0]["attributes"]["name"]).to eq(badge.name)
     end
-    xit 'errors if incorrect data' do
+    it 'errors if incorrect data' do
+      get "/api/v1/users/-1/badges"
 
+      body = JSON.parse(response.body)
+      expect(response.status).to eq(404)
+      expect(body["error"]).to eq("User not found.")
     end
   end
 end
