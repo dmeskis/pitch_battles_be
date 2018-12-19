@@ -67,4 +67,36 @@ describe 'user api', :type => :request do
       expect(body["error"]).to eq("User not found.")
     end
   end
+  describe 'patch' do
+    it 'can patch a user' do
+      user = create(:user)
+      params = {
+                email: Faker::Internet.email
+               }
+
+      patch "/api/v1/users/#{user.id}", :params => params
+
+      body = JSON.parse(response.body)
+
+      updated_user = User.find(user.id)
+      expect(response).to be_successful
+      expect(body["data"].keys).to contain_exactly('id', 'type', 'attributes')
+      expect(updated_user.email).to eq(params[:email])
+    end
+    it 'can fail to patch a user' do
+      user = create(:user)
+      params = {
+                role: 1
+               }
+
+      patch "/api/v1/users/#{user.id}", :params => params
+
+      body = JSON.parse(response.body)
+
+      updated_user = User.find(user.id)
+    
+      expect(response.status).to eq(400)
+      expect(body["error"]).to eq("Updating account failed. Please try again.")
+    end
+  end
 end

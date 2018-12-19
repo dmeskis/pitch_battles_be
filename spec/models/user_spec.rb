@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  it 'is valid' do
+    user = create(:user)
+    expect(user.valid?).to eq(true)
+  end
   describe 'attributes' do
     it 'has attributes' do
       user = create(:user)
