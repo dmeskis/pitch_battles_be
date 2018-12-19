@@ -4,7 +4,8 @@
 
 ### Games
 
-* `GET /api/v1/game/:id` returns a single game by ID
+* `GET /api/v1/games/:id` returns a single game by ID  
+
 Example response:
 ```
 {
@@ -25,7 +26,21 @@ Example response:
 
 * `POST /api/v1/games` creates and saves a game to the database
   * required body parameters: `{email, total_duration, remaining_lives}`
-  * optional body parameters: `{level_one_duration, level_two_duration, level_three_duration, level_four_duration}`
+  * optional body parameters: `{level_one_duration, level_two_duration, level_three_duration, level_four_duration}`  
+  
+Example request:
+
+```
+{
+  total_duration: 15000,
+  level_one_duration: 3000,
+  level_two_duration: 3000,
+  level_three_duration: 6000,
+  level_four_duration: 3000,
+  remaining_life: 2,
+  user_id: 1
+}
+```
 Example response:
 ```
 {
@@ -42,9 +57,11 @@ Example response:
                         }
           }
 }
-   ```
-   * `GET /api/v1/users/:id/games` returns all users games
-   ```
+```
+* `GET /api/v1/users/:id/games` returns all users games  
+
+Example response:
+```
 {
  "data"=>
         {
@@ -90,11 +107,11 @@ Example response:
                            }
            }
 }
-   ```
-   
+```
 ### Users
 
-* `GET /api/v1/users/:id` returns a specific users data
+* `GET /api/v1/users/:id` returns a specific users data  
+
 Example response:
 ```
 {
@@ -105,12 +122,7 @@ Example response:
                           “email”: “example@mail.com”,
                           “first_name”: “billy”,
                           “last_name”: “bob”,
-                          “role”: “student”,
-                          “badges”: {
-                                     “level_1_badge”: “true”,
-                                     “level_2_badge”: “false”,
-                                      etc. etc.
-                                    }
+                          “role”: 0
                           }
           }
 }
@@ -118,19 +130,75 @@ Example response:
 
 * `PATCH /api/v1/users/:id` updates a user's attributes
   * required body parameters: `{current_password}`
-  * optional body parameters: `{email, first_name, last_name, new_password}`
+  * optional body parameters: `{email, first_name, last_name, new_password}`  
+  
+Example request:
+
+```
+{              
+  email: "example@mail.com",
+  first_name: "john",
+  last_name: "legend",
+  password: "new_password",
+  current_password: "password"
+}
+``` 
 Example response:
 ``` 
 {
  “success”: “Account successfully updated”
 }
 ```
-
 * `POST /api/v1/users` creates a user
-  * required body parameters: `{email, first_name, last_name, role, password, password_confirmation}`
+  * required body parameters: `{email, first_name, last_name, role, password, password_confirmation}`  
+  
+Example request:
+
+```
+{              
+  email: "example@mail.com",
+  first_name: "billy",
+  last_name: "bob",
+  role: 0,
+  password: "password",
+  password_confirmation: "password"
+}
+```
 Example response:
 ``` 
 {
  “success”: “Account successfully created!”
+}
+```
+
+### Badges
+
+* `GET /api/v1/users/:id/badges` returns all of a users badges  
+
+Example response:
+```
+{
+ "data"=>
+        {
+         "id"=>"237",
+         "type"=>"user",
+         "attributes"=>
+                      {
+                       "email"=>"beau@conn.io",
+                       "first_name"=>"Kristian",
+                       "last_name"=>"Volkman",
+                       "badges"=>{
+                                   "data"=>[
+                                           {
+                                           "id"=>"27", 
+                                           "type"=>"badge", 
+                                           "attributes"=>{
+                                                           "name"=>"Master", 
+                                                           "description"=>"That's gotta sting."}
+                                                           }
+                                           ]
+                                   }
+                       }
+         }
 }
 ```
