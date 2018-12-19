@@ -4,24 +4,23 @@ require 'database_cleaner'
 # Clean database everytime you seed
 DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
-
 # Create badges
 10.times do
-  create(:badge)
+  FactoryBot.create(:badge)
 end
 
 # Create games and users
 # Factory bot creates a user associated with a game
 10.times do
-  create(:game)
+  FactoryBot.create(:game)
 end
 
 # Create a class
-class = create(:klass)
+klass = FactoryBot.create(:klass)
 
 # Add users to class
 User.all.each do |user|
-  class.users << user
+  klass.users << user
 end
 
 # Give each user a random badge
