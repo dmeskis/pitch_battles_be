@@ -1,4 +1,13 @@
 class Api::V1::GamesController < ApplicationController
+  
+  def show
+    game = Game.where(id: params[:id]).first
+    if game
+      render json: GameSerializer.new(game).serialized_json, status: 200
+    else
+      render json: {"error": "Game not found."}, status: 404
+    end
+  end
 
   def create
     game = Game.new(game_params)

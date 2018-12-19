@@ -8,10 +8,18 @@ describe 'game api', :type => :request do
       get "/api/v1/games/#{game.id}"
 
       body = JSON.parse(response.body)
-
+      
       expect(response).to be_successful
       expect(response.status).to eq(200)
       expect(body["data"]["attributes"]["total_duration"]).to eq(game.total_duration)
+    end
+    it 'errors if game does not exist' do
+      get '/api/v1/games/-1'
+
+      body = JSON.parse(response.body)
+
+      expect(response.status).to eq(404)
+      expect(Game.count).to eq(0)
     end
   end
   describe 'post' do

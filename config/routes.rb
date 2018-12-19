@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       post 'users/:id/games', to: 'games#create'
       post 'users', to: 'users#create'
       patch 'users/:id', to: 'users#update'
+      get 'games/:id', to: 'games#show'
     end
   end
 end
