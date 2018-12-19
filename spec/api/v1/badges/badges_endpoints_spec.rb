@@ -9,10 +9,9 @@ describe 'badge api', :type => :request do
       get "/api/v1/users/#{user.id}/badges"
 
       body = JSON.parse(response.body)
-      
       expect(response).to be_successful
       expect(response.status).to eq(200)
-      expect(body["data"]["relationships"]["badges"]["attributes"][0]["name"]).to eq(badge.name)
+      expect(body["data"]["attributes"]["badges"]["data"][0]["attributes"]["name"]).to eq(badge.name)
     end
     xit 'errors if incorrect data' do
 
