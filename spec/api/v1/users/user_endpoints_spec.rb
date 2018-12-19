@@ -112,5 +112,12 @@ describe 'user api', :type => :request do
       expect(body["data"]["attributes"]["games"]["data"].count).to eq(5)
       expect(body["data"]["attributes"]["games"]["data"][0]["id"]).to eq(game.id.to_s)
     end
+    it 'errors if user does not exist' do
+
+      get "/api/v1/users/-1/games"
+      body = JSON.parse(response.body)
+      expect(response.status).to eq(404)
+      expect(body["error"]).to eq("User not found.")
+    end
   end
 end
