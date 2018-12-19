@@ -43,6 +43,54 @@ Example response:
           }
 }
    ```
+   * `GET /api/v1/users/:id/games` returns all users games
+   ```
+{
+ "data"=>
+        {
+          "id"=>"955",
+           "type"=>"user",
+           "attributes"=>
+                        {
+                          "email"=>"tashaoconnell@hahn.org",
+                           "first_name"=>"Ludivina",
+                           "last_name"=>"Klocko",
+                           "games"=>
+                                    {
+                                      "data"=>
+                                               [
+                                                {
+                                                  "id"=>"404",
+                                                  "type"=>"game",
+                                                  "attributes"=>
+                                                                 {
+                                                                   "total_duration"=>15625,
+                                                                    "level_one_duration"=>54614,
+                                                                    "level_two_duration"=>31979,
+                                                                    "level_three_duration"=>45556,
+                                                                    "level_four_duration"=>83746,
+                                                                    "remaining_life"=>0
+                                                                   }
+                                                 },
+                                                 {
+                                                  "id"=>"405",
+                                                  "type"=>"game",
+                                                  "attributes"=>
+                                                                   {
+                                                                   "total_duration"=>22371,
+                                                                    "level_one_duration"=>65052,
+                                                                    "level_two_duration"=>66644,
+                                                                    "level_three_duration"=>35020,
+                                                                    "level_four_duration"=>67001,
+                                                                    "remaining_life"=>3
+                                                                    }
+                                                  }
+                                                 ]
+                                       }
+                           }
+           }
+}
+   ```
    
 ### Users
 
