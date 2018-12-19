@@ -5,7 +5,7 @@ class User < ApplicationRecord
   validates_presence_of :first_name,
                         :last_name,
                         :role
-  has_many :usersklasses
-  has_many :klasses, through: :usersklasses
+  has_many :user_klasses
+  has_many :klasses, through: :user_klasses
   has_many :games
 end

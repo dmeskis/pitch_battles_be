@@ -2,10 +2,10 @@ class Klass < ApplicationRecord
   validates_presence_of :name
   validates_uniqueness_of :class_key
   before_save :create_class_key
-  has_many :usersklasses
-  has_many :users, through: :usersklasses
-  has_many :klassesgames
-  has_many :games, through: :klassesgames
+  has_many :user_klasses
+  has_many :users, through: :user_klasses
+  has_many :klass_games
+  has_many :games, through: :klass_games
 
   private
 

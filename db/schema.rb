@@ -28,9 +28,13 @@ ActiveRecord::Schema.define(version: 2018_12_18_190106) do
     t.index ["user_id"], name: "index_games_on_user_id"
   end
 
-  create_table "games_klasses", id: false, force: :cascade do |t|
-    t.bigint "klass_id", null: false
-    t.bigint "game_id", null: false
+  create_table "klass_games", force: :cascade do |t|
+    t.bigint "klass_id"
+    t.bigint "games_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["games_id"], name: "index_klass_games_on_games_id"
+    t.index ["klass_id"], name: "index_klass_games_on_klass_id"
   end
 
   create_table "klasses", force: :cascade do |t|
@@ -40,9 +44,13 @@ ActiveRecord::Schema.define(version: 2018_12_18_190106) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "klasses_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "klass_id", null: false
+  create_table "user_klasses", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "klass_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["klass_id"], name: "index_user_klasses_on_klass_id"
+    t.index ["user_id"], name: "index_user_klasses_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,4 +65,8 @@ ActiveRecord::Schema.define(version: 2018_12_18_190106) do
   end
 
   add_foreign_key "games", "users"
+  add_foreign_key "klass_games", "games", column: "games_id"
+  add_foreign_key "klass_games", "klasses"
+  add_foreign_key "user_klasses", "klasses"
+  add_foreign_key "user_klasses", "users"
 end

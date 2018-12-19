@@ -5,6 +5,7 @@ describe 'game api', :type => :request do
     it 'can add a user to a class' do
       user = create(:user)
       klass = create(:klass)
+      binding.pry
       body = {
         class_key: klass.class_key
       }

@@ -1,8 +1,9 @@
 class CreateJoinTableKlassesGames < ActiveRecord::Migration[5.2]
   def change
-    create_join_table :klasses, :games do |t|
-      # t.index [:klass_id, :game_id]
-      # t.index [:game_id, :klass_id]
+    create_table :klass_games do |t|
+      t.references :klass, foreign_key: true
+      t.references :games, foreign_key: true
+      t.timestamps
     end
   end
 end
