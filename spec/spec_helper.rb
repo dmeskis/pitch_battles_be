@@ -13,6 +13,8 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'simplecov'
+SimpleCov.start
 require 'factory_bot_rails'
 
 RSpec.configure do |config|
@@ -28,7 +30,8 @@ RSpec.configure do |config|
     #     # => "be bigger than 2 and smaller than 4"
     # ...rather than:
     #     # => "be bigger than 2"
-    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+    expectations.includrequire 'simplecov'
+    SimpleCov.starte_chain_clauses_in_custom_matcher_descriptions = true
   end
 
   # rspec-mocks config goes here. You can use an alternate test double
