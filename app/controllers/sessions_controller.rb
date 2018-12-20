@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   skip_before_action :authenticate_request, only: :create
 
   def create
+    binding.pry
     authenticate params[:email], params[:password]
   end
 
