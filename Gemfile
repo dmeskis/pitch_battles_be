@@ -11,6 +11,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'fast_jsonapi'
 gem 'jwt'
+gem 'simple_command'
 gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
