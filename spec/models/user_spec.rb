@@ -5,10 +5,6 @@ RSpec.describe User, type: :model do
     user = create(:user)
     expect(user.valid?).to eq(true)
   end
-  it 'should have an auth token on create' do
-    user = create(:user)
-    expect(user.auth_token).to be_a(String)
-  end
   describe 'attributes' do
     it 'has attributes' do
       user = create(:user)
@@ -17,7 +13,6 @@ RSpec.describe User, type: :model do
       expect(user.attributes).to include("role")
       expect(user.attributes).to include("password_digest")
       expect(user.attributes).to include("avatar")
-      expect(user.attributes).to include("auth_token")
     end
   end
   describe 'validations' do
