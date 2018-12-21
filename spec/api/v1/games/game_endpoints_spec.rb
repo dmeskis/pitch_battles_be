@@ -1,12 +1,15 @@
 require 'rails_helper'
 
 describe 'game api', :type => :request do
+  before :each do
+    @user = create(:user)
+    Api::V1::GamesController.any_instance.stub(:authenticate_request).and_return(@user)
+  end 
   describe 'get' do
     it 'can show a single game' do 
       game = create(:game)
 
       get "/api/v1/games/#{game.id}"
-
       body = JSON.parse(response.body)
       
       expect(response).to be_successful

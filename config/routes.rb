@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root to: 'welcome#index'
+  post 'login', to: 'sessions#create'
+  
   namespace :api do
     namespace :v1 do
       get 'users/:id', to: 'users#show'

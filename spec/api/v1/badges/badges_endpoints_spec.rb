@@ -1,12 +1,15 @@
 require 'rails_helper'
 
 describe 'badge api', :type => :request do
+  before :each do
+    @user = create(:user)
+    Api::V1::Users::BadgesController.any_instance.stub(:authenticate_request).and_return(@user)
+  end 
   describe 'get' do
     it 'can get all user badges' do 
-      user = create(:user)
       badge = create(:badge)
-      user.badges << badge
-      get "/api/v1/users/#{user.id}/badges"
+      @user.badges << badge
+      get "/api/v1/users/#{@user.id}/badges"
 
       body = JSON.parse(response.body)
       expect(response).to be_successful
@@ -22,18 +25,3 @@ describe 'badge api', :type => :request do
     end
   end
 end
-
-
-# As a user,
-# I send a GET request to api/v1/users/:id/badges
-
-# Upon a successful request I get the following response (200):
-
-# {
-# data: {
-# id: <user_id>,
-# type: "User",
-# attributes: { <user_attributes> },
-# badges: { }
-# }
-# }

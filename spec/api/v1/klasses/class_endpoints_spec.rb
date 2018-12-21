@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe 'game api', :type => :request do
+  before :each do
+    @user = create(:user)
+    Api::V1::Users::KlassesController.any_instance.stub(:authenticate_request).and_return(@user)
+  end 
   describe 'post' do
     it 'can add a user to a class' do
       user = create(:user)
