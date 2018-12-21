@@ -2,6 +2,20 @@
 
 ## Endpoints
 
+This API uses JSON Web Tokens (JWT) to authenticate user requests. Every request below EXCEPT for:  
+1. POST /api/v1/users
+2. POST /login  
+
+require a header to be sent with a users JWT.
+
+The format for the header is as follows:  
+```
+'AUTHORIZATION': 'bearer <JWT KEY>'
+```
+It will look like the following
+```
+'AUTHORIZATION': 'bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1NDUzNjE4MDV9.srji4gnQkcqpIV0ZJ96-JzquhHuMUDrgkFvJcFzws00'
+```
 ### Games
 
 * `GET /api/v1/games/:id` returns a single game by ID  
@@ -110,6 +124,48 @@ Example response:
 ```
 ### Users
 
+* `POST /api/v1/users` creates a user
+  * required body parameters: `{email, first_name, last_name, role, password, password_confirmation}`  
+  
+Example request:
+
+```
+{              
+  email: "example@mail.com",
+  first_name: "billy",
+  last_name: "bob",
+  role: 0,
+  password: "password",
+  password_confirmation: "password"
+}
+```
+Example response:
+``` 
+{
+ “success”: “Account successfully created!”
+}
+```
+
+* `POST /login` logs in a user
+  * required body parameters: `{email, password}`  
+  
+Example request:
+
+```
+{              
+  email: "example@mail.com",
+  password: "password"
+}
+```
+Example response:
+``` 
+{
+  "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1NDUzNjE4MDV9.srji4gnQkcqpIV0ZJ96-JzquhHuMUDrgkFvJcFzws00",
+  "message": "Login Successful"
+}
+```
+
+
 * `GET /api/v1/users/:id` returns a specific users data  
 
 Example response:
@@ -147,27 +203,6 @@ Example response:
 ``` 
 {
  “success”: “Account successfully updated”
-}
-```
-* `POST /api/v1/users` creates a user
-  * required body parameters: `{email, first_name, last_name, role, password, password_confirmation}`  
-  
-Example request:
-
-```
-{              
-  email: "example@mail.com",
-  first_name: "billy",
-  last_name: "bob",
-  role: 0,
-  password: "password",
-  password_confirmation: "password"
-}
-```
-Example response:
-``` 
-{
- “success”: “Account successfully created!”
 }
 ```
 
