@@ -6,6 +6,12 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 require 'shoulda/matchers'
+require 'database_cleaner'
+
+DatabaseCleaner.strategy = :truncation
+
+# then, whenever you need to clean the DB
+DatabaseCleaner.clean
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
@@ -13,6 +19,8 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

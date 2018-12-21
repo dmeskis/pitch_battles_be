@@ -10,10 +10,9 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    user = User.where(id: params[:id]).first
-    if update_params.empty? != true && user.update(update_params)
-      user = User.find(params[:id])
-      render json: UserSerializer.new(user).serialized_json, status: 200
+    if update_params.empty? != true && @current_user
+      @current_user.update(update_params)
+      render json: UserSerializer.new(@current_user).serialized_json, status: 200
     else
       render json: {"error": "Updating account failed. Please try again."}, status: 400
     end
