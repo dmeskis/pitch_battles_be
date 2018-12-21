@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   skip_before_action :authenticate_request, only: :create
 
   def create
-    authenticate params[:email], params[:password]
+    authenticate params["email"], params["password"]
   end
 
   private
