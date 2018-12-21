@@ -10,6 +10,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
+    binding.pry
     user = User.where(id: params[:id]).first
     if update_params.empty? != true && user.update(update_params)
       user = User.find(params[:id])
