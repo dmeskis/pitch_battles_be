@@ -31,6 +31,23 @@ describe 'user integration', :type => :request do
       expect(User.first.first_name).to eq("new_name")
       User.first.delete
     end
-    it 'returns 500 error if user tries to patch without json token'
+    it 'returns 500 error if user tries to patch without json token' do
+      user = User.new(email: 'test@mail.com',
+        password: 'password',
+        password_confirmation: 'password',
+        first_name: 'Bob',
+        last_name: 'Ross',
+        role: 0)
+      user.save
+
+      patch_body = {              
+      first_name: "new_name",
+      current_password: "password"
+      }
+
+      patch "/api/v1/users/#{User.first.id}", :params => patch_body
+      body = JSON.parse(response.body)
+      expect(body["message"]).to eq("Nil JSON web token")
+    end
   end
 end
