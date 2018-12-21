@@ -26,7 +26,11 @@ describe 'user integration', :type => :request do
         }
 
       patch "/api/v1/users/#{User.first.id}", :params => patch_body, :headers => {'AUTHORIZATION': "bearer #{key}"}
-      expect(true).to eq(false)
+      body = JSON.parse(response.body)
+      expect(body["data"]["attributes"]["first_name"]).to eq("new_name")
+      expect(User.first.first_name).to eq("new_name")
+      User.first.delete
     end
+    it 'returns 500 error if user tries to patch without json token'
   end
 end

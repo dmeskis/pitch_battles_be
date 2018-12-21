@@ -72,11 +72,10 @@ describe 'user api', :type => :request do
     end
   end
   describe 'patch' do
-    it 'can patch a user' do
+    xit 'can patch a user' do
       params = {
                 email: Faker::Internet.email
                }
-
       patch "/api/v1/users/#{@user.id}", :params => params
 
       body = JSON.parse(response.body)
