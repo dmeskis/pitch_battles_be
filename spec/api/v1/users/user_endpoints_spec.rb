@@ -1,8 +1,14 @@
 require 'rails_helper'
 
 describe 'user api', :type => :request do
+  before :each do
+    @user = create(:user)
+    Api::V1::UsersController.any_instance.stub(:authenticate_request).and_return(@user)
+    Api::V1::Users::GamesController.any_instance.stub(:authenticate_request).and_return(@user)
+  end 
   describe 'post' do
     it 'can create a user' do
+      User.first.delete
       body = {
               email: "example@mail.com",
               first_name: "billy",
@@ -26,7 +32,7 @@ describe 'user api', :type => :request do
       expect(user.role).to eq(0)
     end
     it 'fails to post a user if info is incorrect' do
-
+      User.first.delete
       body = {
         email: '',
         first_name: "billy",
@@ -47,8 +53,7 @@ describe 'user api', :type => :request do
   end
   describe 'get' do
     it 'can get a users data' do
-      user = create(:user)
-      get "/api/v1/users/#{user.id}"
+      get "/api/v1/users/#{@user.id}"
 
       body = JSON.parse(response.body)
       expect(response).to be_successful
@@ -68,31 +73,29 @@ describe 'user api', :type => :request do
   end
   describe 'patch' do
     it 'can patch a user' do
-      user = create(:user)
       params = {
                 email: Faker::Internet.email
                }
 
-      patch "/api/v1/users/#{user.id}", :params => params
+      patch "/api/v1/users/#{@user.id}", :params => params
 
       body = JSON.parse(response.body)
 
-      updated_user = User.find(user.id)
+      updated_user = User.find(@user.id)
       expect(response).to be_successful
       expect(body["data"].keys).to contain_exactly('id', 'type', 'attributes')
       expect(updated_user.email).to eq(params[:email])
     end
     it 'can fail to patch a user' do
-      user = create(:user)
       params = {
                 role: 1
                }
 
-      patch "/api/v1/users/#{user.id}", :params => params
+      patch "/api/v1/users/#{@user.id}", :params => params
 
       body = JSON.parse(response.body)
 
-      updated_user = User.find(user.id)
+      updated_user = User.find(@user.id)
     
       expect(response.status).to eq(400)
       expect(body["error"]).to eq("Updating account failed. Please try again.")
