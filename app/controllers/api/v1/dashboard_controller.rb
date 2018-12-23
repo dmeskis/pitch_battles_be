@@ -1,4 +1,4 @@
-class DashboardController < ApplicationController
+class Api::V1::DashboardController < ApplicationController
 
   def show
     if @current_user

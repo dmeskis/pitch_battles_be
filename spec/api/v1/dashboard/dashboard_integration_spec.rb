@@ -22,8 +22,7 @@ describe 'dashboard integration', :type => :request do
 
       get "/api/v1/dashboard", :headers => {'AUTHORIZATION': "bearer #{key}"}
       body = JSON.parse(response.body)
-      expect(body["data"]["attributes"]["first_name"]).to eq("new_name")
-      expect(User.first.first_name).to eq("new_name")
+      expect(body["data"]["attributes"]["first_name"]).to eq(user.first_name)
       User.first.delete
     end
     it 'returns 500 error if user tries to get dashboard without json token' do
