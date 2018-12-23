@@ -124,6 +124,51 @@ Example response:
 ```
 ### Users
 
+* `GET /api/v1/dashboard` returns the logged in user's data (owner of JWT)
+
+Example response:
+```
+{
+    "data": {
+        "id": "1",
+        "type": "user",
+        "attributes": {
+            "email": "janean@schmeler.net",
+            "first_name": "Hyun",
+            "last_name": "Herzog",
+            "games": {
+                "data": [
+                    {
+                        "id": "1",
+                        "type": "game",
+                        "attributes": {
+                            "total_duration": 17601,
+                            "level_one_duration": 70526,
+                            "level_two_duration": 80290,
+                            "level_three_duration": 75920,
+                            "level_four_duration": 19375,
+                            "remaining_life": 0
+                        }
+                    }
+                ]
+            },
+            "badges": {
+                "data": [
+                    {
+                        "id": "7",
+                        "type": "badge",
+                        "attributes": {
+                            "name": "Gold IV",
+                            "description": "Ready to set the world on fire..."
+                        }
+                    }
+                ]
+            },
+            "classes": {
+                "data": [
+                    {
+ ```
+
 * `POST /api/v1/users` creates a user
   * required body parameters: `{email, first_name, last_name, role, password, password_confirmation}`  
   
@@ -171,16 +216,55 @@ Example response:
 Example response:
 ```
 {
-  "data": {
-           "id": "1",
-           "type": "user",
-           "attributes": {
-                          “email”: “example@mail.com”,
-                          “first_name”: “billy”,
-                          “last_name”: “bob”,
-                          “role”: 0
-                          }
-          }
+    "data": {
+        "id": "1",
+        "type": "user",
+        "attributes": {
+            "email": "janean@schmeler.net",
+            "first_name": "Hyun",
+            "last_name": "Herzog",
+            "games": {
+                "data": [
+                    {
+                        "id": "1",
+                        "type": "game",
+                        "attributes": {
+                            "total_duration": 17601,
+                            "level_one_duration": 70526,
+                            "level_two_duration": 80290,
+                            "level_three_duration": 75920,
+                            "level_four_duration": 19375,
+                            "remaining_life": 0
+                        }
+                    }
+                ]
+            },
+            "badges": {
+                "data": [
+                    {
+                        "id": "7",
+                        "type": "badge",
+                        "attributes": {
+                            "name": "Gold IV",
+                            "description": "Ready to set the world on fire..."
+                        }
+                    }
+                ]
+            },
+            "classes": {
+                "data": [
+                    {
+                        "id": "1",
+                        "type": "klass",
+                        "attributes": {
+                            "name": "Test Class",
+                            "class_key": "Vc88u8Cz6_44DkiA3OMx0g"
+                        }
+                    }
+                ]
+            }
+        }
+    }
 }
 ```
 
