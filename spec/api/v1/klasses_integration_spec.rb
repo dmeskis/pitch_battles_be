@@ -29,17 +29,53 @@ describe 'game api', :type => :request do
       expect(parsed["data"]["attributes"].keys).to contain_exactly("name", "class_key")
       expect(Klass.first.class_key).to eq(parsed["data"]["attributes"]["class_key"])
     end
-    xit 'cannot create a class if user is not teacher' do
+    it 'cannot create a class if user is not teacher' do
+      user = User.new(email: 'teacher@mail.com',
+        password: 'password',
+        password_confirmation: 'password',
+        first_name: 'Bob',
+        last_name: 'Ross',
+        role: 0)
+      user.save
 
-      post "/api/v1/users/#{user.id}/class", :params => body
+      body = {
+      email: 'teacher@mail.com',
+      password: 'password'
+      }
 
+      post '/login', :params => body
+
+      class_body = {
+      name: "My class"
+      }
+
+      key = JSON.parse(response.body)["access_token"]
+      post "/api/v1/classes", :params => class_body, :headers => {'AUTHORIZATION': "bearer #{key}"}
       parsed = JSON.parse(response.body)
-      expect(response.status).to eq(404)
-      expect(parsed["error"]).to eq("Incorrect credentials.")
-      expect(klass.users.count).to eq(0)
+      expect(response.status).to eq(401)
+      expect(parsed["error"]).to eq("You must be a teacher to create a class")
     end
-    xit 'cannot create a class if no name is provided' do
-      
+    it 'cannot create a class if no name is provided' do
+      user = User.new(email: 'teacher@mail.com',
+        password: 'password',
+        password_confirmation: 'password',
+        first_name: 'Bob',
+        last_name: 'Ross',
+        role: 1)
+      user.save
+
+      body = {
+      email: 'teacher@mail.com',
+      password: 'password'
+      }
+
+      post '/login', :params => body
+
+      key = JSON.parse(response.body)["access_token"]
+      post "/api/v1/classes", :headers => {'AUTHORIZATION': "bearer #{key}"}
+      parsed = JSON.parse(response.body)
+      expect(response.status).to eq(422)
+      expect(parsed["error"]).to eq("You must enter a class name.")
     end
   end
 end
