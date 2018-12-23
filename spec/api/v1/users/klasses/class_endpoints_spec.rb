@@ -18,6 +18,7 @@ describe 'klass api', :type => :request do
       parsed = JSON.parse(response.body)
       expect(response).to be_successful
       expect(response.status).to eq(200)
+      expect(parsed["success"]).to eq("Successfully added #{user.first_name} #{user.last_name} to #{klass.name}.")
       expect(klass.users.count).to eq(1)
       expect(klass.users.first.first_name).to eq(user.first_name)
     end
