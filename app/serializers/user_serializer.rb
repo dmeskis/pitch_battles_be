@@ -7,4 +7,7 @@ class UserSerializer
   attribute :badges do |obj|
     BadgeSerializer.new(obj.badges)
   end
+  attribute :classes do |obj|
+    KlassSerializer.new(obj.klasses)
+  end
 end
