@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       post 'users', to: 'users#create'
       patch 'users/:id', to: 'users#update'
       get 'games/:id', to: 'games#show'
+      post 'classes', to: 'klasses#create'
     end
   end
 end
