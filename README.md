@@ -262,3 +262,20 @@ Example response:
           }
 }
 ```
+
+* `POST /api/v1/users/:id/classes` adds a user to a class
+
+Example request:
+
+```
+{
+ class_key: klass.class_key
+}
+```
+Example response:
+``` 
+{
+  "success"=>"Successfully added Granville Willms to Test Class."
+}
+```
+
