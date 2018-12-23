@@ -237,3 +237,28 @@ Example response:
          }
 }
 ```
+
+### Classes
+
+* `POST /api/v1/classes` creates a class
+
+Example request:
+
+```
+{
+ name: "My class"
+}
+```
+Example response:
+``` 
+{
+  "data"=>{
+            "id"=>"1",
+            "type"=>"klass", 
+            "attributes"=>{
+                            "name"=>"My class", 
+                            "class_key"=>"HHDkjl6lspdMqHghsIu8WQ"
+                          }
+          }
+}
+```
