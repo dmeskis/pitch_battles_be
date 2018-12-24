@@ -3,9 +3,13 @@ class Api::V1::KlassesController < ApplicationController
   
   def create
     if @current_user && @current_user.role == 1
-      klass = Klass.create(klass_params)
-      @current_user.klasses << klass
-      render json: KlassSerializer.new(klass).serialized_json, status: 200
+      klass = Klass.new(klass_params)
+      klass.teacher_id = @current_user.id
+      if klass.save
+        render json: KlassSerializer.new(klass).serialized_json, status: 200
+      else
+        render json: {"error": "Unable to save class, please try again."}, status: 500
+      end
     else
       render json: {"error": "You must be a teacher to create a class"}, status: 401
     end
