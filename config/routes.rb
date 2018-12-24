@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       patch 'users/:id', to: 'users#update'
       get 'games/:id', to: 'games#show'
       post 'classes', to: 'klasses#create'
+      delete 'classes/:id', to: 'klasses#destroy'
     end
   end
 end
