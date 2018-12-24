@@ -366,7 +366,7 @@ Example response:
 * `DELETE /api/v1/classes/:id` deletes a class
   * User must be logged in and be the teacher who created the class to delete a class
 
-```
+
 Example response:
 ``` 
 {
