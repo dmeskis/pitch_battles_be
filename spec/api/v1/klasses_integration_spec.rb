@@ -98,10 +98,10 @@ describe 'game api', :type => :request do
       klass = create(:klass, teacher_id: teacher.id)
 
       key = JSON.parse(response.body)["access_token"]
-      delete "/api/v1/classes/", :headers => {'AUTHORIZATION': "bearer #{key}"}
+      delete "/api/v1/classes/#{klass.id}", :headers => {'AUTHORIZATION': "bearer #{key}"}
       parsed = JSON.parse(response.body)
       expect(response.status).to eq(200)
-      expect(parsed.body["success"]).to eq("Succesfully deleted #{klass.name}.")
+      expect(parsed["success"]).to eq("Successfully deleted #{klass.name}.")
     end
     it 'cannot delete a class if user is not the teacher who created it' do
       teacher = User.new(email: 'teacher@mail.com',
@@ -112,11 +112,11 @@ describe 'game api', :type => :request do
                         role: 1)
       teacher.save
 
-      teacher_2 = User.new(email: 'teacher@mail.com',
+      teacher_2 = User.new(email: 'teacher_2@mail.com',
                             password: 'password',
                             password_confirmation: 'password',
-                            first_name: 'Bob',
-                            last_name: 'Ross',
+                            first_name: 'Carl',
+                            last_name: 'Jenkins',
                             role: 1)
       teacher_2.save
 
@@ -130,9 +130,9 @@ describe 'game api', :type => :request do
       klass = create(:klass, teacher_id: teacher_2.id)
 
       key = JSON.parse(response.body)["access_token"]
-      delete "/api/v1/classes/", :headers => {'AUTHORIZATION': "bearer #{key}"}
+      delete "/api/v1/classes/#{klass.id}", :headers => {'AUTHORIZATION': "bearer #{key}"}
       parsed = JSON.parse(response.body)
-      expect(response.status).to eq(404)
+      expect(response.status).to eq(401)
       # expect(parsed.body["error"]).to eq("Succesfully deleted #{klass.name}.")
     end
   end
