@@ -31,5 +31,37 @@ describe 'klass api', :type => :request do
       expect(parsed["success"]).to eq("Successfully removed #{user.first_name} #{user.last_name} from #{klass.name}.")
       expect(klass.users.count).to eq(0)
     end
+    it 'does not let one delete a user from a class if they are not the student being deleted' do
+      klass = create(:klass)
+
+      user = User.new(email: 'teacher@mail.com',
+        password: 'password',
+        password_confirmation: 'password',
+        first_name: 'Bob',
+        last_name: 'Ross',
+        role: 1)
+
+      user.save
+
+      user_2 = create(:user)
+
+      klass.users << user
+
+      body =  {
+                email: 'teacher@mail.com',
+                password: 'password'
+              }
+
+      post '/login', :params => body
+  
+      key = JSON.parse(response.body)["access_token"]
+      # Attempting to delete user 2 with user 1 being the one logged in
+      delete "/api/v1/users/#{user_2.id}/classes/#{klass.id}", :headers => {'AUTHORIZATION': "bearer #{key}"}
+
+      parsed = JSON.parse(response.body)
+      expect(response.status).to eq(403)
+      expect(parsed["error"]).to eq("Insufficient permissions to remove user from #{klass.name}.")
+      expet(klass.users.count).to eq(1)
+    end
   end
 end
