@@ -52,4 +52,14 @@ describe 'klass api', :type => :request do
       expect(klass.users.first.first_name).to eq(user.first_name)
     end
   end
+  describe 'delete' do 
+    it 'can delete a user from a class' do
+      user = create(:user)
+      klass = create(:klass)
+
+      klass.users << user
+      
+      
+    end
+  end
 end

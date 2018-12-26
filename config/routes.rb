@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get 'users/:id', to: 'users#show'
       get 'users/:id/badges', to: 'users/badges#index'
       post 'users/:id/class', to: 'users/klasses#create'
+      delete 'users/:id/classes/:klass_id', to: 'users/klasses#destroy'
       post 'users/:id/games', to: 'games#create'
       get 'users/:id/games', to: 'users/games#index'
       post 'users', to: 'users#create'
