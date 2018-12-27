@@ -2,7 +2,7 @@ class Api::V1::KlassesController < ApplicationController
   before_action :validate_name_present, only: :create
   
   def create
-    if @current_user && @current_user.teacher?
+    if @current_user.teacher?
       klass = Klass.new(klass_params)
       klass.teacher_id = @current_user.id
       if klass.save
