@@ -5,6 +5,16 @@ RSpec.describe User, type: :model do
     user = create(:user)
     expect(user.valid?).to eq(true)
   end
+  describe 'enum' do
+    it 'is teacher?' do
+      user = create(:user, role: 1)
+      expect(user.teacher?).to eq(true)
+    end
+    it 'is student?' do
+      user = create(:user, role: 0)
+      expect(user.student?).to eq(true)
+    end
+  end
   describe 'attributes' do
     it 'has attributes' do
       user = create(:user)

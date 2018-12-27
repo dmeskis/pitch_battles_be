@@ -1,5 +1,5 @@
 class Klass < ApplicationRecord
-  validates_presence_of :name
+  validates_presence_of :name, :teacher_id
   validates_uniqueness_of :class_key
   before_save :create_class_key
   belongs_to :teacher, class_name: "User"

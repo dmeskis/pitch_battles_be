@@ -1,9 +1,9 @@
 class Api::V1::GamesController < ApplicationController
-  
+  before_action :set_variables, only: :show
+
   def show
-    game = Game.where(id: params[:id]).first
-    if game
-      render json: GameSerializer.new(game).serialized_json, status: 200
+    if @game
+      render json: GameSerializer.new(@game).serialized_json, status: 200
     else
       render json: {"error": "Game not found."}, status: 404
     end
@@ -29,5 +29,9 @@ class Api::V1::GamesController < ApplicationController
                     :remaining_life,
                     :user_id
                     )
+    end
+
+    def set_variables
+      @game = Game.where(id: params[:id]).first
     end
 end
