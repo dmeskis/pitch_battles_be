@@ -51,6 +51,22 @@ describe 'klass api', :type => :request do
       expect(klass.users.count).to eq(1)
       expect(klass.users.first.first_name).to eq(user.first_name)
     end
+    it 'does not allow a user to join the same class multiple times' do
+      user = create(:user, role: 1)
+      klass = create(:klass)
+
+      klass.users << user
+      body = {
+        class_key: klass.class_key
+      }
+
+      post "/api/v1/users/#{user.id}/class", :params => body
+
+      parsed = JSON.parse(response.body)
+      expect(response.status).to eq(400)
+      expect(parsed["error"]).to eq("Unable to join #{@klass.name}. Insufficient permissions or already part of the class.")
+      expect(klass.users.count).to eq(1)
+    end
   end
   describe 'delete' do 
     it 'can delete a user from a class' do
