@@ -1,0 +1,2 @@
+class PasswordMailer < ApplicationMailer
+end

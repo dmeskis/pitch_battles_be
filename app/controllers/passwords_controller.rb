@@ -2,7 +2,6 @@ class PasswordsController < ApplicationController
   skip_before_action :authenticate_request
 
   def forgot
-    binding.pry
     if params[:email].blank?
       return render json: {error: 'Email not present'}
     end
