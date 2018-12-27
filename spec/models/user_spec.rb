@@ -37,5 +37,12 @@ RSpec.describe User, type: :model do
     it { should have_many :klasses }
     it { should have_many :games }
     it { should have_many :badges}
+    it 'cannot have duplicate badges' do
+      user = create(:user)
+      badge = create(:badge)
+      user.badges << badge
+      user.badges << badge
+      expect(user.badges.count).to eq(1)
+    end
   end
 end
