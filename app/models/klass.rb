@@ -4,7 +4,7 @@ class Klass < ApplicationRecord
   before_save :create_class_key
   belongs_to :teacher, class_name: "User"
   has_many :user_klasses
-  has_many :users, through: :user_klasses
+  has_many :users, -> { distinct }, through: :user_klasses
   has_many :klass_games
   has_many :games, through: :klass_games
 

@@ -61,10 +61,9 @@ describe 'klass api', :type => :request do
       }
 
       post "/api/v1/users/#{user.id}/class", :params => body
-
       parsed = JSON.parse(response.body)
       expect(response.status).to eq(400)
-      expect(parsed["error"]).to eq("Unable to join #{@klass.name}. Insufficient permissions or already part of the class.")
+      expect(parsed["error"]).to eq("Unable to join #{klass.name}. You have already joined the class.")
       expect(klass.users.count).to eq(1)
     end
   end

@@ -6,7 +6,7 @@ class User < ApplicationRecord
                         :last_name,
                         :role
   has_many :user_klasses
-  has_many :klasses, through: :user_klasses
+  has_many :klasses, -> { distinct }, through: :user_klasses
   has_many :games
   has_many :user_badges
   has_many :badges, through: :user_badges
