@@ -18,10 +18,13 @@ class Api::V1::KlassesController < ApplicationController
   def destroy
     klass = Klass.where(id: params[:id]).first
     if klass.teacher == @current_user
-      klass.delete
-      render json: {"success": "Successfully deleted #{klass.name}."}
+      if klass.delete
+        render json: {"success": "Successfully deleted #{klass.name}."}
+      else
+        render json: {"error": "Unable to delete #{klass.name}, please try again."}
+      end
     else
-      render json: {"error": "Unable to delete class"}, status: 401
+      render json: {"error": "You must be a teacher of a class to delete it."}, status: 401
     end
   end
 
