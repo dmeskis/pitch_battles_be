@@ -13,7 +13,7 @@ describe 'user api', :type => :request do
               email: "example@mail.com",
               first_name: "billy",
               last_name: "bob",
-              role: 0,
+              role: "student",
               password: "password",
               password_confirmation: "password"
       }
@@ -29,7 +29,7 @@ describe 'user api', :type => :request do
       user = User.first
       expect(user.first_name).to eq("billy")
       expect(user.last_name).to eq("bob")
-      expect(user.role).to eq(0)
+      expect(user.role).to eq("student")
     end
     it 'fails to post a user if info is incorrect' do
       User.first.delete
@@ -37,7 +37,7 @@ describe 'user api', :type => :request do
         email: '',
         first_name: "billy",
         last_name: "",
-        role: 0,
+        role: "teacher",
         password: "password",
         password_confirmation: "password"
       }

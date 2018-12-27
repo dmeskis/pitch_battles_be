@@ -70,7 +70,7 @@ describe 'klass api', :type => :request do
         password_confirmation: 'password',
         first_name: 'Bob',
         last_name: 'Ross',
-        role: 1)
+        role: "teacher")
 
       user.save
 
