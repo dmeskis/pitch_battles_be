@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :klasses, -> { distinct }, through: :user_klasses
   has_many :games
   has_many :user_badges
-  has_many :badges, through: :user_badges
+  has_many :badges, -> { distinct }, through: :user_badges
   enum role: [:student, :teacher]
 
 end
