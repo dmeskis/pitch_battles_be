@@ -1,13 +1,14 @@
 class Api::V1::Users::KlassesController < ApplicationController
   before_action :key_present?, only: :create
   before_action :set_create_variables, only: :create
+  before_action :prevent_duplicate, only: :create
   before_action :validate_user, only: :destroy
 
   def create
     if @klass.users << @user
       render json: {"success": "Successfully added #{@user.first_name} #{@user.last_name} to #{@klass.name}."}, status: 200
     else
-      render json: {"error": "Unable to join #{@klass.name}. Insufficient permissions or already part of the class."}, status: 400
+      render json: {"error": "Unable to join #{@klass.name}. Please try again."}, status: 500
     end
   end
 
@@ -44,6 +45,12 @@ class Api::V1::Users::KlassesController < ApplicationController
     @klass = Klass.where(id: klass_params[:klass_id]).first
     unless @current_user == @user || @current_user.teacher? && @klass.teacher == @current_user
       render json: {"error": "Insufficient permissions to remove user from #{@klass.name}."}, status: 403
+    end
+  end
+
+  def prevent_duplicate
+    if @klass.users.include? @user
+      render json: {"error": "Unable to join #{@klass.name}. You have already joined the class."}, status: 400
     end
   end
 
