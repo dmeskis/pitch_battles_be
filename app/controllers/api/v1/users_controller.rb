@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :authenticate_request, only: [:create]
+
   def show
     user = User.where(id: params[:id]).first
     if user
@@ -10,7 +11,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    if update_params.empty? != true && @current_user
+    if update_params.empty? != true
       @current_user.update(update_params)
       render json: UserSerializer.new(@current_user).serialized_json, status: 200
     else
