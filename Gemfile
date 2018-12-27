@@ -24,6 +24,7 @@ group :development, :test do
   gem 'simplecov'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'capybara-email'
 end
 
 group :development do
