@@ -30,7 +30,7 @@ class Api::V1::Users::KlassesController < ApplicationController
   def validate_user
     @user = User.where(id: klass_params[:id]).first
     @klass = Klass.where(id: klass_params[:klass_id]).first
-    unless @current_user == @user || @current_user.role == 1 && @klass.teacher == @current_user
+    unless @current_user == @user || @current_user.teacher? && @klass.teacher == @current_user
       render json: {"error": "Insufficient permissions to remove user from #{@klass.name}."}, status: 403
     end
   end
