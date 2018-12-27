@@ -1,9 +1,9 @@
 class Api::V1::KlassesController < ApplicationController
-  before_action :set_variables, only: :destroy
+  before_action :validate_name_present, only: :create
   before_action :set_create_variables, only: :create
   before_action :is_teacher?, only: :create
+  before_action :set_variables, only: :destroy
   before_action :is_class_teacher?, only: :destroy
-  before_action :validate_name_present, only: :create
   
   def create
     if @klass.save

@@ -22,7 +22,7 @@ describe 'klass api', :type => :request do
       expect(klass.users.count).to eq(1)
       expect(klass.users.first.first_name).to eq(user.first_name)
     end
-    it 'errors if incorrect credentials' do
+    it 'errors if class not found' do
       user = create(:user, role: 1)
       klass = create(:klass)
       body = {
@@ -33,7 +33,7 @@ describe 'klass api', :type => :request do
 
       parsed = JSON.parse(response.body)
       expect(response.status).to eq(404)
-      expect(parsed["error"]).to eq("Incorrect credentials.")
+      expect(parsed["error"]).to eq("Class not found.")
       expect(klass.users.count).to eq(0)
     end
     it 'does not allow a user to create a class if they are not a teacher' do
