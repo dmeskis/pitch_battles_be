@@ -34,12 +34,13 @@ class Api::V1::GamesController < ApplicationController
     end
 
     def create_game
+      binding.pry
       Game.new(
-        level_one_duration: params[:times][0],
-        level_two_duration: params[:times][1],
-        level_three_duration: params[:times][2],
-        level_four_duration: params[:times][3],
-        total_duration: params[:times][4],
+        level_one_duration: params[:times][:one],
+        level_two_duration: params[:times][:two],
+        level_three_duration: params[:times][:three],
+        level_four_duration: params[:times][:four],
+        total_duration: params[:times][:all],
         user_id: @current_user.id,
         level_one_perfect: params[:perfectScores][:one],
         level_two_perfect: params[:perfectScores][:two],
