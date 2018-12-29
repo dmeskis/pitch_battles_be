@@ -61,7 +61,7 @@ describe 'user api', :type => :request do
       expect(body.keys).to contain_exactly('data')
       expect(body["data"].keys).to contain_exactly('id', 'type', 'attributes')
       expect(body["data"]["type"]).to eq("user")
-      expect(body["data"]["attributes"].keys).to contain_exactly('email', 'first_name', 'last_name', 'games', 'badges', 'classes')
+      expect(body["data"]["attributes"].keys).to contain_exactly('email', 'first_name', 'last_name', 'avatar', 'games', 'badges', 'classes')
     end
     it 'does not return a users data which does not exit' do
       get "/api/v1/users/-1"
