@@ -29,16 +29,11 @@ describe 'game api', :type => :request do
     it 'can create a new game' do
       user = create(:user)
       body = {
-              total_duration: 15000,
-              level_one_duration: 3000,
-              level_two_duration: 3000,
-              level_three_duration: 6000,
-              level_four_duration: 3000,
-              remaining_life: 2,
-              user_id: user.id
-            }
+        perfectScores: { one: true, two: true, three: true, four: true, all: false },
+        times: [11111, 22222, 33333, 44444, 55555]
+      }
 
-      post "/api/v1/users/#{user.id}/games", :params => body
+      post "/api/v1//games", :params => body
 
       parsed = JSON.parse(response.body)
       expect(response).to be_successful

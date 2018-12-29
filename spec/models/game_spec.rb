@@ -7,7 +7,6 @@ RSpec.describe Game, type: :model do
   end
   describe 'attributes' do
     it 'has attributes' do
-      binding.pry
       game = create(:game)
       expect(game.attributes).to include("total_duration")
       expect(game.attributes).to include("level_one_duration")
