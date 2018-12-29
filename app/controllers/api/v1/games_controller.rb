@@ -28,7 +28,9 @@ class Api::V1::GamesController < ApplicationController
                     :level_three_duration,
                     :level_four_duration,
                     :remaining_life,
-                    :user_id
+                    :user_id,
+                    :times,
+                    :perfectScores
                     )
     end
 

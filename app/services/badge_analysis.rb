@@ -6,7 +6,7 @@ class BadgeAnalysis
   end
 
   def analyze
-    
+    binding.pry
   end
 
 end
