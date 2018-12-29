@@ -21,7 +21,6 @@ RSpec.describe BadgeAnalysis do
     create(:badge, id: 17, name: "play 1000 games", description: "Play one-thousand games." )
   end
   it 'exists' do
-    # binding.pry
     game = create(:game)
     ba = BadgeAnalysis.new(game)
     expect(ba).to be_kind_of(BadgeAnalysis)
