@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_29_184331) do
+ActiveRecord::Schema.define(version: 2018_12_29_184818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,12 @@ ActiveRecord::Schema.define(version: 2018_12_29_184331) do
     t.datetime "updated_at", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
+    t.integer "level_one_fastest_time"
+    t.integer "level_two_fastest_time"
+    t.integer "level_three_fastest_time"
+    t.integer "level_four_fastest_time"
+    t.integer "total_fastest_time"
+    t.integer "total_games_played"
   end
 
   add_foreign_key "games", "users"
