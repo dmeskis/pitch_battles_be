@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BadgeAnalysis do
+describe 'badge analysis integration spec' do
   before :each do
     create(:badge, id: 2, name: "play 5 games", description: "Play five games." )
     create(:badge, id: 3, name: "level one: completed", description: "Complete level one.")
@@ -20,11 +20,33 @@ RSpec.describe BadgeAnalysis do
     create(:badge, id: 16, name: "play 500 games", description: "Play five-hundred games." )
     create(:badge, id: 17, name: "play 1000 games", description: "Play one-thousand games." )
   end
-  it 'exists' do
-    # binding.pry
-    game = create(:game)
-    ba = BadgeAnalysis.new(game)
-    expect(ba).to be_kind_of(BadgeAnalysis)
+  it 'can properly analyze badges' do
+    # Log in user and retrieve key
+    user = User.new(email: 'test@mail.com',
+      password: 'password',
+      password_confirmation: 'password',
+      first_name: 'Bob',
+      last_name: 'Ross',
+      role: 0)
+    user.save
+
+    body = {
+    email: User.first.email,
+    password: 'password'
+    }
+
+    post '/login', :params => body
+
+    key = JSON.parse(response.body)["access_token"]
+
+    # Post a user game
+
+    patch_body = {              
+        perfectScores: { one: true, two: true, three: true, four: true, all: false },
+        times: [11111, 22222, 33333, 44444, 55555]
+    }
+
+    post "/api/v1/users/#{User.first.id}", :params => patch_body, :headers => {'AUTHORIZATION': "bearer #{key}"}
   end
   
 end
