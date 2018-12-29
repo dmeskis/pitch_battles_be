@@ -20,7 +20,7 @@ describe 'badge analysis integration spec' do
     create(:badge, id: 16, name: "play 500 games", description: "Play five-hundred games." )
     create(:badge, id: 17, name: "play 1000 games", description: "Play one-thousand games." )
   end
-  it 'can properly analyze badges' do
+  xit 'can properly analyze badges' do
     # Log in user and retrieve key
     user = User.new(email: 'test@mail.com',
       password: 'password',
