@@ -21,8 +21,8 @@ describe 'game integration', :type => :request do
       key = JSON.parse(response.body)["access_token"]
 
       body = {
-        perfectScores: { one: true, two: true, three: true, four: true, all: false },
-        times: [11111, 22222, 33333, 44444, 55555]
+        perfectScores: { "one": true, "two": true, three: true, four: true, all: false },
+        times: {"one": 11111, "two": 22222, "three": nil, "four": nil, all: 33333}
       }
 
       post "/api/v1/games", :params => body, :headers => {'AUTHORIZATION': "bearer #{key}"}
@@ -36,7 +36,7 @@ describe 'game integration', :type => :request do
       expect(game.level_one_duration).to eq(11111)
       expect(game.level_one_perfect).to eq(true)
       expect(game.level_four_perfect).to eq(true)
-      expect(game.total_duration).to eq(55555)
+      expect(game.total_duration).to eq(33333)
     end
     it 'fails to post without correct information' do
       user = User.new(email: 'test@mail.com',
