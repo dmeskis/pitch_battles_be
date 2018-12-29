@@ -85,14 +85,12 @@ ActiveRecord::Schema.define(version: 2018_12_29_184818) do
     t.integer "avatar", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.integer "level_one_fastest_time"
-    t.integer "level_two_fastest_time"
-    t.integer "level_three_fastest_time"
-    t.integer "level_four_fastest_time"
-    t.integer "total_fastest_time"
-    t.integer "total_games_played"
+    t.integer "level_one_fastest_time", default: 0
+    t.integer "level_two_fastest_time", default: 0
+    t.integer "level_three_fastest_time", default: 0
+    t.integer "level_four_fastest_time", default: 0
+    t.integer "total_fastest_time", default: 0
+    t.integer "total_games_played", default: 0
   end
 
   add_foreign_key "games", "users"
