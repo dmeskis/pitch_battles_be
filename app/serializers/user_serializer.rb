@@ -1,6 +1,6 @@
 class UserSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :email, :first_name, :last_name
+  attributes :email, :first_name, :last_name, :avatar
   attribute :games do |obj|
     GameSerializer.new(Game.where(user_id: obj.id))
   end
