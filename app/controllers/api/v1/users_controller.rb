@@ -45,8 +45,6 @@ class Api::V1::UsersController < ApplicationController
                     :last_name,
                     :avatar,
                     :password,
-                    :password_confirmation,
-                    :current_password,
-                    :new_password)
+                    :password_confirmation)
     end
 end
