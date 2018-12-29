@@ -34,7 +34,6 @@ class Api::V1::GamesController < ApplicationController
     end
 
     def create_game
-      binding.pry
       Game.new(
         level_one_duration: params[:times][:one],
         level_two_duration: params[:times][:two],
