@@ -32,7 +32,8 @@ describe 'password_reset' do
     }
 
     post '/login', :params => body
-    key = JSON.parse(response.body)["access_token"]
-
+    parsed = JSON.parse(response.body)
+    key = parsed["access_token"]
+    expect(parsed["message"]).to eq("Login Successful")
   end
 end
