@@ -25,7 +25,7 @@ describe 'user integration', :type => :request do
           current_password: "password"
         }
 
-      patch "/api/v1/users/#{User.first.id}", :params => patch_body, :headers => {'AUTHORIZATION': "bearer #{key}"}
+      patch "/api/v1/users", :params => patch_body, :headers => {'AUTHORIZATION': "bearer #{key}"}
       body = JSON.parse(response.body)
       expect(body["data"]["attributes"]["first_name"]).to eq("new_name")
       expect(User.first.first_name).to eq("new_name")
@@ -45,7 +45,7 @@ describe 'user integration', :type => :request do
       current_password: "password"
       }
 
-      patch "/api/v1/users/#{User.first.id}", :params => patch_body
+      patch "/api/v1/users", :params => patch_body
       body = JSON.parse(response.body)
       expect(body["message"]).to eq("Nil JSON web token")
     end
