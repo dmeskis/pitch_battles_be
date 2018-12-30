@@ -96,8 +96,8 @@ describe 'user api', :type => :request do
 
       updated_user = User.find(@user.id)
     
-      expect(response.status).to eq(400)
-      expect(body["error"]).to eq("Updating account failed. Please try again.")
+      expect(response.status).to eq(422)
+      expect(body["error"]).to eq("No update fields submitted. Resend request with valid update fields.")
     end
   end
   describe 'users games' do
