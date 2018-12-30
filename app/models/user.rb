@@ -11,5 +11,10 @@ class User < ApplicationRecord
   has_many :user_badges
   has_many :badges, -> { distinct }, through: :user_badges
   enum role: [:student, :teacher]
+  before_save :downcase_email
+
+  def downcase_email
+      self.email.downcase! unless self.email.nil?
+  end
 
 end
