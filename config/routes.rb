@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: 'welcome#index'
   post 'login', to: 'sessions#create'
+  post 'password/forgot', to: 'passwords#forgot'
+  post 'password/reset', to: 'passwords#reset'
   
   namespace :api do
     namespace :v1 do
