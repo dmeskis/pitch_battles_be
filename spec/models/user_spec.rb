@@ -63,5 +63,9 @@ RSpec.describe User, type: :model do
 
       expect(user.games.count).to eq(num_games)
     end
+    it 'downcases email on create' do
+      user = create(:user, email: "TEST@MAIL.COM")
+      expect(user.email).to eq("test@mail.com")
+    end
   end
 end
