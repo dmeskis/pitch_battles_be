@@ -1,5 +1,6 @@
 class PasswordsController < ApplicationController
   skip_before_action :authenticate_request
+  before_action :password_blank?, only: :reset
 
   def forgot
     if params[:email].blank?
@@ -29,7 +30,15 @@ class PasswordsController < ApplicationController
         render json: {error: user.errors.full_messages}, status: :unprocessable_entity
       end
     else
-      render json: {error:  ['Link not valid or expired. Try generating a new link.']}, status: :not_found
+      render json: {error: 'Link not valid or expired. Try generating a new link.'}, status: :not_found
+    end
+  end
+
+  private
+
+  def password_blank?
+    unless !params[:password].blank?
+      render json: {error: "Password cannot be blank."}, status: :unprocessable_entity
     end
   end
 end

@@ -49,4 +49,33 @@ describe 'password_reset', type: :request do
     json = JSON.parse(response.body)
     expect(json["error"]).to eq('Email address not found. Please check and try again.')
   end
+  it 'short password' do
+    @user.generate_password_token!
+    body = {
+      password: "a",
+      token: @user.reset_password_token
+    }
+    post '/password/reset', :params => body
+    json = JSON.parse(response.body)
+    expect(json["message"]).to eq('Validation failed: Password is too short (minimum is 6 characters)')
+  end
+  it 'blank password' do
+    @user.generate_password_token!
+    body = {
+      password: "",
+      token: @user.reset_password_token
+    }
+    post '/password/reset', :params => body
+    json = JSON.parse(response.body)
+    expect(json["error"]).to eq('Password cannot be blank.')
+  end
+  it 'invalid token' do
+    body = {
+      password: "newpassword",
+      token: 'badtoken'
+    }
+    post '/password/reset', :params => body
+    json = JSON.parse(response.body)
+    expect(json["error"]).to eq('Link not valid or expired. Try generating a new link.')
+  end
 end
