@@ -54,5 +54,14 @@ RSpec.describe User, type: :model do
       user.badges << badge
       expect(user.badges.count).to eq(1)
     end
+    it 'has a game counter' do
+      user = create(:user)
+      num_games = rand(0..10)
+      num_games.times do
+        create(:game, user_id: user.id)
+      end
+
+      expect(user.games.count).to eq(num_games)
+    end
   end
 end
