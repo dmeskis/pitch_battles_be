@@ -331,6 +331,44 @@ Example response:
 }
 ```
 
+### Password Reset
+
+* `POST /api/v1/password/forgot` sends an email to the user with a reset password token
+  * required body parameters: `{email}`
+  
+Example request:
+
+```
+{              
+ "email": "example@mail.com
+}
+```
+
+Example response:
+```
+{
+ "success": 'Please check your email to reset your password.'
+}
+```
+
+* `POST /api/v1/password/reset` resets the users password
+    * required body parameters: `{token, password}`
+    
+Example request:
+```
+{
+ "password": "newpassword", 
+ "token": "0f8f5b078e9510f32660"
+}
+```
+
+Example response:
+```
+{
+ "success": "Password successfully reset!"
+}
+```
+
 ### Badges
 
 * `GET /api/v1/users/:id/badges` returns all of a users badges  
