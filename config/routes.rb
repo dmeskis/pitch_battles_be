@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create'
   post 'password/forgot', to: 'passwords#forgot'
   post 'password/reset', to: 'passwords#reset'
-  put 'password/update', to: 'passwords#update'
   
   namespace :api do
     namespace :v1 do
