@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       post 'games', to: 'games#create'
       get 'users/:id/games', to: 'users/games#index'
       post 'users', to: 'users#create'
-      patch 'users/:id', to: 'users#update'
+      patch 'users', to: 'users#update'
       get 'games/:id', to: 'games#show'
       post 'classes', to: 'klasses#create'
       delete 'classes/:id', to: 'klasses#destroy'
