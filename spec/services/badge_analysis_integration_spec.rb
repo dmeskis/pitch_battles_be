@@ -2,16 +2,16 @@ require 'rails_helper'
 
 describe 'badge analysis integration spec', :type => :request do
   before :each do
-    @badge_2 = create(:badge, id: 2, name: "play 5 games", description: "Play five games." )
-    @badge_3 = create(:badge, id: 3, name: "level one: completed", description: "Complete level one.")
-    @badge_4 = create(:badge, id: 4, name: "level one: perfect", description: "Complete level one without losing any lives.")
-    @badge_6 = create(:badge, id: 6, name: "level two: completed", description: "Complete level two.")
-    @badge_7 = create(:badge, id: 7, name: "level two: perfect", description: "Complete level two without losing any lives." )
-    @badge_9 = create(:badge, id: 9, name: "level three: completed", description: "Complete level three." )
-    @badge_11 = create(:badge, id: 11, name: "level three: perfect", description: "Complete level three without losing any lives." )
-    @badge_12 = create(:badge, id: 12, name: "level four: completed", description: "Complete level four." )
-    @badge_14 = create(:badge, id: 14, name: "level four: perfect", description: "Complete level four without losing any lives." )
-    @badge_1 = create(:badge, id: 1, name: "all levels: perfect", description: "Complete all levels without losing any lives." )
+    @badge_1 = create(:badge, id: 1, name: "play 5 games", description: "Play five games." )
+    @badge_2 = create(:badge, id: 2, name: "level one: completed", description: "Complete level one.")
+    @badge_3 = create(:badge, id: 3, name: "level one: perfect", description: "Complete level one without losing any lives.")
+    @badge_4 = create(:badge, id: 4, name: "level two: completed", description: "Complete level two.")
+    @badge_6 = create(:badge, id: 6, name: "level two: perfect", description: "Complete level two without losing any lives." )
+    @badge_7 = create(:badge, id: 7, name: "level three: completed", description: "Complete level three." )
+    @badge_9 = create(:badge, id: 9, name: "level three: perfect", description: "Complete level three without losing any lives." )
+    @badge_11 = create(:badge, id: 11, name: "level four: completed", description: "Complete level four." )
+    @badge_12 = create(:badge, id: 12, name: "level four: perfect", description: "Complete level four without losing any lives." )
+    @badge_14 = create(:badge, id: 14, name: "all levels: perfect", description: "Complete all levels without losing any lives." )
     @badge_5 = create(:badge, id: 5, name: "play 10 games", description: "Play ten games." )
     @badge_8 = create(:badge, id: 8, name: "play 20 games", description: "Play twenty games.")
     @badge_10 = create(:badge, id: 10, name: "play 50 games", description: "Play fifty games." )
@@ -53,13 +53,14 @@ describe 'badge analysis integration spec', :type => :request do
     expect(user.level_three_fastest_time).to eq(33333)
     expect(user.level_four_fastest_time).to eq(44444)
     expect(user.total_fastest_time).to eq(55555)
-    expect(user.badges).to include([@badge_3,
+    expect(user.badges).to include( @badge_2,
+                                    @badge_3,
                                     @badge_4,
                                     @badge_6,
                                     @badge_7,
                                     @badge_9,
-                                    @badge_12,
-                                    ])
+                                    @badge_11
+                                  )
   end
   
 end
