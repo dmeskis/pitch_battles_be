@@ -1,22 +1,12 @@
 require 'rails_helper'
+require 'helpers/login_helper'
+include LoginHelper
 
 describe 'user integration', :type => :request do
   describe 'patch' do
     it 'can patch a user' do
-      user = User.new(email: 'test@mail.com',
-                      password: 'password',
-                      password_confirmation: 'password',
-                      first_name: 'Bob',
-                      last_name: 'Ross',
-                      role: 0)
-      user.save
-
-      body = {
-        email: User.first.email,
-        password: 'password'
-      }
-
-      post '/login', :params => body
+      create_student
+      login
 
       key = JSON.parse(response.body)["access_token"]
 
@@ -32,13 +22,7 @@ describe 'user integration', :type => :request do
       User.first.delete
     end
     it 'returns 500 error if user tries to patch without json token' do
-      user = User.new(email: 'test@mail.com',
-        password: 'password',
-        password_confirmation: 'password',
-        first_name: 'Bob',
-        last_name: 'Ross',
-        role: 0)
-      user.save
+      create_student
 
       patch_body = {              
       first_name: "new_name",

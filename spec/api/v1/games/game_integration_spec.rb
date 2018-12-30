@@ -3,20 +3,8 @@ require 'rails_helper'
 describe 'game integration', :type => :request do
   describe 'post' do
     it 'can post a game' do
-      user = User.new(email: 'test@mail.com',
-                      password: 'password',
-                      password_confirmation: 'password',
-                      first_name: 'Bob',
-                      last_name: 'Ross',
-                      role: 0)
-      user.save
-
-      body = {
-        email: User.first.email,
-        password: 'password'
-      }
-
-      post '/login', :params => body
+      create_student
+      login
 
       key = JSON.parse(response.body)["access_token"]
 
@@ -39,20 +27,8 @@ describe 'game integration', :type => :request do
       expect(game.total_duration).to eq(33333)
     end
     it 'fails to post without correct information' do
-      user = User.new(email: 'test@mail.com',
-        password: 'password',
-        password_confirmation: 'password',
-        first_name: 'Bob',
-        last_name: 'Ross',
-        role: 0)
-      user.save
-
-      body = {
-      email: User.first.email,
-      password: 'password'
-      }
-
-      post '/login', :params => body
+      create_student
+      login
 
       key = JSON.parse(response.body)["access_token"]
 
