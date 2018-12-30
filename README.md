@@ -205,8 +205,15 @@ Example request:
 Example response:
 ``` 
 {
-  "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1NDUzNjE4MDV9.srji4gnQkcqpIV0ZJ96-JzquhHuMUDrgkFvJcFzws00",
-  "message": "Login Successful"
+    "access_token":       "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1NDYxMzY3MTN9.ycGG6AF_2bnqDpuZHauBH3e2DIqq8gxjJYeHGpiVAo0",
+    "message": "Login Successful",
+    "user": {
+        "id": 3,
+        "email": "dmeskis@gmail.com",
+        "first_name": "dylan",
+        "last_name": "meskis",
+        "avatar": 1
+    }
 }
 ```
 
@@ -268,25 +275,41 @@ Example response:
 }
 ```
 
-* `PATCH /api/v1/users/:id` updates a user's attributes
+* `PATCH /api/v1/users` updates a user's attributes
   * required body parameters: `{current_password}`
-  * optional body parameters: `{email, first_name, last_name, new_password}`  
+  * optional body parameters: `{email, first_name, last_name, avatar, password}`  
   
 Example request:
 
 ```
 {              
-  email: "example@mail.com",
-  first_name: "john",
-  last_name: "legend",
-  password: "new_password",
+  first_name: "George",
+  last_name: "Costanza",
   current_password: "password"
 }
 ``` 
 Example response:
 ``` 
 {
- “success”: “Account successfully updated”
+    "data": {
+        "id": "3",
+        "type": "user",
+        "attributes": {
+            "email": "chancetherapper@gmail.com",
+            "first_name": "George",
+            "last_name": "Costanza",
+            "avatar": 1,
+            "games": {
+                "data": []
+            },
+            "badges": {
+                "data": []
+            },
+            "classes": {
+                "data": []
+            }
+        }
+    }
 }
 ```
 
