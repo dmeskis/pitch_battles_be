@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-describe 'password_reset' do
+describe 'password_reset', type: :request do
   before :each do
     @user = create(:user)
   end
-  it 'user can receive a password reset email' do
+  it 'user can reset password' do
     body = {
       email: @user.email
     }
@@ -35,5 +35,18 @@ describe 'password_reset' do
     parsed = JSON.parse(response.body)
     key = parsed["access_token"]
     expect(parsed["message"]).to eq("Login Successful")
+  end
+  it 'user forgets email' do
+    post '/password/forgot'
+    json = JSON.parse(response.body)
+    expect(json["error"]).to eq('Email not present')
+  end
+  it 'user does not exist' do
+    body = {
+      email: "NotAnEmail@mail.com"
+    }
+    post '/password/forgot', :params => body
+    json = JSON.parse(response.body)
+    expect(json["error"]).to eq('Email address not found. Please check and try again.')
   end
 end
