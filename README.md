@@ -23,53 +23,55 @@ It will look like the following
 Example response:
 ```
 {
-  "data": {
-         "id": "1",
-         "type": "game",
-         "attributes", {
-                        "total_duration": "15000",
-                        "level_one_duration": "2000",
-                        "level_two_duration": "3000",
-                        "level_three_duration": "5000",
-                        "level_four_duration": "5000",
-                        "remaining_lives": "2"
-                        }
-          }
+    "data": {
+        "id": "1",
+        "type": "game",
+        "attributes": {
+            "total_duration": 1000,
+            "level_one_duration": 9002,
+            "level_two_duration": 1000,
+            "level_three_duration": 1000,
+            "level_four_duration": 1000,
+            "level_one_perfect": true,
+            "level_two_perfect": false,
+            "level_three_perfect": false,
+            "level_four_perfect": false,
+            "all_perfect": false
+        }
+    }
 }
    ```
 
 * `POST /api/v1/games` creates and saves a game to the database
-  * required body parameters: `{email, total_duration, remaining_lives}`
-  * optional body parameters: `{level_one_duration, level_two_duration, level_three_duration, level_four_duration}`  
+  * required body parameters: `{perfectScores, "times"}` 
   
 Example request:
 
 ```
 {
-  total_duration: 15000,
-  level_one_duration: 3000,
-  level_two_duration: 3000,
-  level_three_duration: 6000,
-  level_four_duration: 3000,
-  remaining_life: 2,
-  user_id: 1
+    "perfectScores": { "one": true, "two": false, "three": false, "four": false, "all": false },
+    "times": {"one": 111535, "two": 115555, "three": 1234134, "four": null, "all": null}
 }
 ```
 Example response:
 ```
 {
-  "data": {
-         "id": "1",
-         "type": "game",
-         "attributes", {
-                        "total_duration": "15000",
-                        "level_one_duration": "2000",
-                        "level_two_duration": "3000",
-                        "level_three_duration": "5000",
-                        "level_four_duration": "5000",
-                        "remaining_lives": "2"
-                        }
-          }
+    "data": {
+        "id": "17",
+        "type": "game",
+        "attributes": {
+            "total_duration": null,
+            "level_one_duration": 111535,
+            "level_two_duration": 115555,
+            "level_three_duration": 1234134,
+            "level_four_duration": null,
+            "level_one_perfect": true,
+            "level_two_perfect": false,
+            "level_three_perfect": false,
+            "level_four_perfect": false,
+            "all_perfect": false
+        }
+    }
 }
 ```
 * `GET /api/v1/users/:id/games` returns all users games  
@@ -77,49 +79,51 @@ Example response:
 Example response:
 ```
 {
- "data"=>
-        {
-          "id"=>"955",
-           "type"=>"user",
-           "attributes"=>
-                        {
-                          "email"=>"tashaoconnell@hahn.org",
-                           "first_name"=>"Ludivina",
-                           "last_name"=>"Klocko",
-                           "games"=>
-                                    {
-                                      "data"=>
-                                               [
-                                                {
-                                                  "id"=>"404",
-                                                  "type"=>"game",
-                                                  "attributes"=>
-                                                                 {
-                                                                   "total_duration"=>15625,
-                                                                    "level_one_duration"=>54614,
-                                                                    "level_two_duration"=>31979,
-                                                                    "level_three_duration"=>45556,
-                                                                    "level_four_duration"=>83746,
-                                                                    "remaining_life"=>0
-                                                                   }
-                                                 },
-                                                 {
-                                                  "id"=>"405",
-                                                  "type"=>"game",
-                                                  "attributes"=>
-                                                                   {
-                                                                   "total_duration"=>22371,
-                                                                    "level_one_duration"=>65052,
-                                                                    "level_two_duration"=>66644,
-                                                                    "level_three_duration"=>35020,
-                                                                    "level_four_duration"=>67001,
-                                                                    "remaining_life"=>3
-                                                                    }
-                                                  }
-                                                 ]
-                                       }
-                           }
-           }
+    "data": {
+        "id": "3",
+        "type": "user",
+        "attributes": {
+            "email": "dmeskis@gmail.com",
+            "first_name": "bob",
+            "last_name": "meskis",
+            "games": {
+                "data": [
+                    {
+                        "id": "11",
+                        "type": "game",
+                        "attributes": {
+                            "total_duration": 33333,
+                            "level_one_duration": 11111,
+                            "level_two_duration": 22222,
+                            "level_three_duration": null,
+                            "level_four_duration": null,
+                            "level_one_perfect": true,
+                            "level_two_perfect": true,
+                            "level_three_perfect": true,
+                            "level_four_perfect": true,
+                            "all_perfect": true
+                        }
+                    },
+                    {
+                        "id": "12",
+                        "type": "game",
+                        "attributes": {
+                            "total_duration": 33333,
+                            "level_one_duration": 11111,
+                            "level_two_duration": 22222,
+                            "level_three_duration": null,
+                            "level_four_duration": null,
+                            "level_one_perfect": true,
+                            "level_two_perfect": false,
+                            "level_three_perfect": false,
+                            "level_four_perfect": false,
+                            "all_perfect": false
+                        }
+                    }
+                ]
+            }
+        }
+    }
 }
 ```
 ### Users
@@ -130,24 +134,34 @@ Example response:
 ```
 {
     "data": {
-        "id": "1",
+        "id": "3",
         "type": "user",
         "attributes": {
-            "email": "janean@schmeler.net",
-            "first_name": "Hyun",
-            "last_name": "Herzog",
+            "email": "dmeskis@gmail.com",
+            "first_name": "bob",
+            "last_name": "meskis",
+            "avatar": 1,
+            "level_one_fastest_time": 111535,
+            "level_two_fastest_time": 115555,
+            "level_three_fastest_time": 1234134,
+            "level_four_fastest_time": 0,
+            "total_games_played": 6,
             "games": {
                 "data": [
                     {
-                        "id": "1",
+                        "id": "11",
                         "type": "game",
                         "attributes": {
-                            "total_duration": 17601,
-                            "level_one_duration": 70526,
-                            "level_two_duration": 80290,
-                            "level_three_duration": 75920,
-                            "level_four_duration": 19375,
-                            "remaining_life": 0
+                            "total_duration": 33333,
+                            "level_one_duration": 11111,
+                            "level_two_duration": 22222,
+                            "level_three_duration": null,
+                            "level_four_duration": null,
+                            "level_one_perfect": true,
+                            "level_two_perfect": true,
+                            "level_three_perfect": true,
+                            "level_four_perfect": true,
+                            "all_perfect": true
                         }
                     }
                 ]
@@ -155,18 +169,21 @@ Example response:
             "badges": {
                 "data": [
                     {
-                        "id": "7",
+                        "id": "1",
                         "type": "badge",
                         "attributes": {
-                            "name": "Gold IV",
-                            "description": "Ready to set the world on fire..."
+                            "name": "play 5 games",
+                            "description": "Play five games."
                         }
                     }
                 ]
             },
             "classes": {
-                "data": [
-                    {
+                "data": []
+            }
+        }
+    }
+}
  ```
 
 * `POST /api/v1/users` creates a user
@@ -205,8 +222,15 @@ Example request:
 Example response:
 ``` 
 {
-  "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1NDUzNjE4MDV9.srji4gnQkcqpIV0ZJ96-JzquhHuMUDrgkFvJcFzws00",
-  "message": "Login Successful"
+    "access_token":       "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1NDYxMzY3MTN9.ycGG6AF_2bnqDpuZHauBH3e2DIqq8gxjJYeHGpiVAo0",
+    "message": "Login Successful",
+    "user": {
+        "id": 3,
+        "email": "dmeskis@gmail.com",
+        "first_name": "dylan",
+        "last_name": "meskis",
+        "avatar": 1
+    }
 }
 ```
 
@@ -220,21 +244,31 @@ Example response:
         "id": "1",
         "type": "user",
         "attributes": {
-            "email": "janean@schmeler.net",
-            "first_name": "Hyun",
-            "last_name": "Herzog",
+            "email": "simpsonkevinjohn@gmail.com",
+            "first_name": "Chet",
+            "last_name": "Manly",
+            "avatar": 7,
+            "level_one_fastest_time": 11233,
+            "level_two_fastest_time": 16612,
+            "level_three_fastest_time": 22819,
+            "level_four_fastest_time": 31625,
+            "total_games_played": 8,
             "games": {
                 "data": [
                     {
                         "id": "1",
                         "type": "game",
                         "attributes": {
-                            "total_duration": 17601,
-                            "level_one_duration": 70526,
-                            "level_two_duration": 80290,
-                            "level_three_duration": 75920,
-                            "level_four_duration": 19375,
-                            "remaining_life": 0
+                            "total_duration": 1000,
+                            "level_one_duration": 9002,
+                            "level_two_duration": 1000,
+                            "level_three_duration": 1000,
+                            "level_four_duration": 1000,
+                            "level_one_perfect": true,
+                            "level_two_perfect": false,
+                            "level_three_perfect": false,
+                            "level_four_perfect": false,
+                            "all_perfect": false
                         }
                     }
                 ]
@@ -242,51 +276,58 @@ Example response:
             "badges": {
                 "data": [
                     {
-                        "id": "7",
+                        "id": "1",
                         "type": "badge",
                         "attributes": {
-                            "name": "Gold IV",
-                            "description": "Ready to set the world on fire..."
+                            "name": "play 5 games",
+                            "description": "Play five games."
                         }
                     }
                 ]
             },
             "classes": {
-                "data": [
-                    {
-                        "id": "1",
-                        "type": "klass",
-                        "attributes": {
-                            "name": "Test Class",
-                            "class_key": "Vc88u8Cz6_44DkiA3OMx0g"
-                        }
-                    }
-                ]
+                "data": []
             }
         }
     }
 }
 ```
 
-* `PATCH /api/v1/users/:id` updates a user's attributes
+* `PATCH /api/v1/users` updates a user's attributes
   * required body parameters: `{current_password}`
-  * optional body parameters: `{email, first_name, last_name, new_password}`  
+  * optional body parameters: `{email, first_name, last_name, avatar, password}`  
   
 Example request:
 
 ```
 {              
-  email: "example@mail.com",
-  first_name: "john",
-  last_name: "legend",
-  password: "new_password",
+  first_name: "George",
+  last_name: "Costanza",
   current_password: "password"
 }
 ``` 
 Example response:
 ``` 
 {
- “success”: “Account successfully updated”
+    "data": {
+        "id": "3",
+        "type": "user",
+        "attributes": {
+            "email": "chancetherapper@gmail.com",
+            "first_name": "George",
+            "last_name": "Costanza",
+            "avatar": 1,
+            "games": {
+                "data": []
+            },
+            "badges": {
+                "data": []
+            },
+            "classes": {
+                "data": []
+            }
+        }
+    }
 }
 ```
 
@@ -297,28 +338,35 @@ Example response:
 Example response:
 ```
 {
- "data"=>
-        {
-         "id"=>"237",
-         "type"=>"user",
-         "attributes"=>
-                      {
-                       "email"=>"beau@conn.io",
-                       "first_name"=>"Kristian",
-                       "last_name"=>"Volkman",
-                       "badges"=>{
-                                   "data"=>[
-                                           {
-                                           "id"=>"27", 
-                                           "type"=>"badge", 
-                                           "attributes"=>{
-                                                           "name"=>"Master", 
-                                                           "description"=>"That's gotta sting."}
-                                                           }
-                                           ]
-                                   }
-                       }
-         }
+    "data": {
+        "id": "1",
+        "type": "user",
+        "attributes": {
+            "email": "simpsonkevinjohn@gmail.com",
+            "first_name": "Chet",
+            "last_name": "Manly",
+            "badges": {
+                "data": [
+                    {
+                        "id": "1",
+                        "type": "badge",
+                        "attributes": {
+                            "name": "play 5 games",
+                            "description": "Play five games."
+                        }
+                    },
+                    {
+                        "id": "2",
+                        "type": "badge",
+                        "attributes": {
+                            "name": "level one: completed",
+                            "description": "Complete level one."
+                        }
+                    }
+                ]
+            }
+        }
+    }
 }
 ```
 

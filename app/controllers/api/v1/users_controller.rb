@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :authenticate_request, only: [:create]
+  before_action :params_empty?, only: :update
 
   def show
     user = User.where(id: params[:id]).first
@@ -11,11 +12,10 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    if update_params.empty? != true
-      @current_user.update(update_params)
+    if @current_user.update(update_params)
       render json: UserSerializer.new(@current_user).serialized_json, status: 200
     else
-      render json: {"error": "Updating account failed. Please try again."}, status: 400
+      render json: {"error": "Updating account failed. Please try again."}, status: 500
     end
   end
 
@@ -43,7 +43,14 @@ class Api::V1::UsersController < ApplicationController
       params.permit(:email,
                     :first_name, 
                     :last_name,
+                    :avatar,
                     :password,
                     :password_confirmation)
+    end
+
+    def params_empty?
+      unless update_params.empty? != true
+        render json: {error: "No update fields submitted. Resend request with valid update fields."}, status: 422
+      end
     end
 end

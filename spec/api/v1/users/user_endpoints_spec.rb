@@ -61,7 +61,18 @@ describe 'user api', :type => :request do
       expect(body.keys).to contain_exactly('data')
       expect(body["data"].keys).to contain_exactly('id', 'type', 'attributes')
       expect(body["data"]["type"]).to eq("user")
-      expect(body["data"]["attributes"].keys).to contain_exactly('email', 'first_name', 'last_name', 'games', 'badges', 'classes')
+      expect(body["data"]["attributes"].keys).to contain_exactly('email', 
+                                                                 'first_name', 
+                                                                 'last_name', 
+                                                                 'avatar', 
+                                                                 'level_one_fastest_time',
+                                                                 'level_two_fastest_time',
+                                                                 'level_three_fastest_time',
+                                                                 'level_four_fastest_time',
+                                                                 'total_games_played',
+                                                                 'games', 
+                                                                 'badges', 
+                                                                 'classes')
     end
     it 'does not return a users data which does not exit' do
       get "/api/v1/users/-1"
@@ -76,7 +87,7 @@ describe 'user api', :type => :request do
       params = {
                 email: Faker::Internet.email
                }
-      patch "/api/v1/users/#{@user.id}", :params => params
+      patch "/api/v1/users", :params => params
 
       body = JSON.parse(response.body)
 
@@ -90,14 +101,14 @@ describe 'user api', :type => :request do
                 role: 1
                }
 
-      patch "/api/v1/users/#{@user.id}", :params => params
+      patch "/api/v1/users", :params => params
 
       body = JSON.parse(response.body)
 
       updated_user = User.find(@user.id)
     
-      expect(response.status).to eq(400)
-      expect(body["error"]).to eq("Updating account failed. Please try again.")
+      expect(response.status).to eq(422)
+      expect(body["error"]).to eq("No update fields submitted. Resend request with valid update fields.")
     end
   end
   describe 'users games' do

@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_27_203056) do
+
+ActiveRecord::Schema.define(version: 2018_12_29_192621) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,10 +30,14 @@ ActiveRecord::Schema.define(version: 2018_12_27_203056) do
     t.integer "level_two_duration"
     t.integer "level_three_duration"
     t.integer "level_four_duration"
-    t.integer "remaining_life"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "level_one_perfect"
+    t.boolean "level_two_perfect"
+    t.boolean "level_three_perfect"
+    t.boolean "level_four_perfect"
+    t.boolean "all_perfect"
     t.index ["user_id"], name: "index_games_on_user_id"
   end
 
@@ -82,6 +88,12 @@ ActiveRecord::Schema.define(version: 2018_12_27_203056) do
     t.datetime "updated_at", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
+    t.integer "level_one_fastest_time", default: 0
+    t.integer "level_two_fastest_time", default: 0
+    t.integer "level_three_fastest_time", default: 0
+    t.integer "level_four_fastest_time", default: 0
+    t.integer "total_fastest_time", default: 0
+    t.integer "total_games_played", default: 0
   end
 
   add_foreign_key "games", "users"
