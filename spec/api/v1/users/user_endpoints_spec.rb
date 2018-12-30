@@ -76,7 +76,7 @@ describe 'user api', :type => :request do
       params = {
                 email: Faker::Internet.email
                }
-      patch "/api/v1/users/#{@user.id}", :params => params
+      patch "/api/v1/users", :params => params
 
       body = JSON.parse(response.body)
 
@@ -90,7 +90,7 @@ describe 'user api', :type => :request do
                 role: 1
                }
 
-      patch "/api/v1/users/#{@user.id}", :params => params
+      patch "/api/v1/users", :params => params
 
       body = JSON.parse(response.body)
 
