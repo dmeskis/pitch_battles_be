@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get 'dashboard', to: 'dashboard#show'
       get 'users/:id', to: 'users#show'
       get 'users/:id/badges', to: 'users/badges#index'
+      get 'leaderboards', to: 'leaderboards#index'
       post 'users/:id/class', to: 'users/klasses#create'
       delete 'users/:id/classes/:klass_id', to: 'users/klasses#destroy'
       post 'games', to: 'games#create'

@@ -12,11 +12,11 @@ describe 'leaderboards', :type => :request do
     it 'returns the top 100 scores for level one' do
       create_student
       login
+      key = JSON.parse(response.body)["access_token"]
 
-      get '/api/v1/leaderboards?type=level_one'
+      get '/api/v1/leaderboards?type=level_one', :headers => {'AUTHORIZATION': "bearer #{key}"}
 
       json = JSON.parse(response.body)
-
       expect(response).to be_successful
     end
   end
