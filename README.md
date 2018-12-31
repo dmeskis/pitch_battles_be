@@ -53,13 +53,13 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 ### Games
 
 ###### * `POST /api/v1/games` creates and saves a game to the database
-  * required body parameters: `{perfectScores, times}` 
+  * required body parameters: `{perfect_scores, times}` 
   
 Example request:
 
 ```
 {
-    "perfectScores": { "one": true, "two": false, "three": false, "four": false, "all": false },
+    "perfect_scores": { "one": true, "two": false, "three": false, "four": false, "all": false },
     "times": {"one": 111535, "two": 115555, "three": 1234134, "four": null, "all": null}
 }
 ```

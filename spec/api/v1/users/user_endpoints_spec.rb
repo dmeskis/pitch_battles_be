@@ -65,6 +65,7 @@ describe 'user api', :type => :request do
                                                                  'first_name', 
                                                                  'last_name', 
                                                                  'avatar', 
+                                                                 'role',
                                                                  'level_one_fastest_time',
                                                                  'level_two_fastest_time',
                                                                  'level_three_fastest_time',
