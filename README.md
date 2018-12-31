@@ -1,49 +1,59 @@
-# README
+![Pitch Battles API Logo](https://i.imgur.com/PsSM70j.png)
 
-## Endpoints
+# Pitch Battles API [![CircleCI](https://circleci.com/gh/dmeskis/pitch_battles_be.svg?style=svg)](https://circleci.com/gh/dmeskis/pitch_battles_be)
 
-This API uses JSON Web Tokens (JWT) to authenticate user requests. Every request below EXCEPT for:  
+Pitch Battles API is the back-end application handling data and authorization for [Pitch Battles](https://github.com/relasine/pitch-battles-frontend).
+
+### Table of Contents  
+- [Authorization](#authorization)
+- [Endpoints](#endpoints)
+  * [Games](#games)  
+        - [`POST /api/v1/games`](#-post-apiv1games-creates-and-saves-a-game-to-the-database)  
+        - [`GET /api/v1/games/:id`](#-get-apiv1gamesid-returns-a-single-game-by-id)  
+        - [`GET /api/v1/users/:id/games`](#-get-apiv1usersidgames-returns-all-users-games)
+  * [Users](#users)  
+        - [`POST /api/v1/users`](#-post-apiv1users-creates-a-user)  
+        - [`POST /login`](#-post-login-logs-in-a-user)  
+        - [`GET /api/v1/dashboard`](#-get-apiv1dashboard-returns-the-logged-in-users-data-bearer-of-jwt)  
+        - [`GET /api/v1/users/:id`](#-get-apiv1usersid-returns-a-specific-users-data)  
+        - [`PATCH /api/v1/users`](#-patch-apiv1users-updates-a-users-attributes)  
+  * [Password Reset](#password-reset)  
+        - [`POST /password/forgot`](#-post-passwordforgot-sends-an-email-to-the-user-with-a-reset-password-token)  
+        - [`POST /password/reset`](#-post-passwordreset-resets-the-users-password)
+  * [Badges](#badges)  
+        - [`GET /api/v1/users/:id/badges`](#-get-apiv1usersidbadges-returns-all-of-a-users-badges)
+  * [Classes](#classes)  
+        - [`POST /api/v1/classes`](#-post-apiv1classes-creates-a-class)  
+        - [`POST /api/v1/users/:id/classes`](#-post-apiv1usersidclasses-adds-a-user-to-a-class)  
+        - [`DELETE /api/v1/classes/:id`](#-delete-apiv1classesid-deletes-a-class)  
+        - [`DELETE /api/v1/users/:id/classes/:klass_id`](#-delete-apiv1usersidclassesklass_id-deletes-a-user-from-a-class)
+        
+## Authorization
+
+This API uses JSON Web Tokens (JWT) to authenticate user requests. Every request below **EXCEPT** for:  
 1. POST /api/v1/users
 2. POST /login  
 
-require a header to be sent with a users JWT.
+**REQUIRES** a header to be sent with a users JWT.
 
 The format for the header is as follows:  
 ```
 'AUTHORIZATION': 'bearer <JWT KEY>'
 ```
-It will look like the following
+
+An example header:
 ```
 'AUTHORIZATION': 'bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1NDUzNjE4MDV9.srji4gnQkcqpIV0ZJ96-JzquhHuMUDrgkFvJcFzws00'
 ```
+
+For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/introduction/)
+
+## Endpoints
+
 ### Games
 
-* `GET /api/v1/games/:id` returns a single game by ID  
-
-Example response:
-```
-{
-    "data": {
-        "id": "1",
-        "type": "game",
-        "attributes": {
-            "total_duration": 1000,
-            "level_one_duration": 9002,
-            "level_two_duration": 1000,
-            "level_three_duration": 1000,
-            "level_four_duration": 1000,
-            "level_one_perfect": true,
-            "level_two_perfect": false,
-            "level_three_perfect": false,
-            "level_four_perfect": false,
-            "all_perfect": false
-        }
-    }
-}
-   ```
-
-* `POST /api/v1/games` creates and saves a game to the database
-  * required body parameters: `{perfectScores, "times"}` 
+###### * `POST /api/v1/games` creates and saves a game to the database
+  * required body parameters: `{perfectScores, times}` 
   
 Example request:
 
@@ -53,7 +63,9 @@ Example request:
     "times": {"one": 111535, "two": 115555, "three": 1234134, "four": null, "all": null}
 }
 ```
+
 Example response:
+
 ```
 {
     "data": {
@@ -74,9 +86,36 @@ Example response:
     }
 }
 ```
-* `GET /api/v1/users/:id/games` returns all users games  
+
+###### * `GET /api/v1/games/:id` returns a single game by ID  
 
 Example response:
+
+```
+{
+    "data": {
+        "id": "1",
+        "type": "game",
+        "attributes": {
+            "total_duration": 1000,
+            "level_one_duration": 9002,
+            "level_two_duration": 1000,
+            "level_three_duration": 1000,
+            "level_four_duration": 1000,
+            "level_one_perfect": true,
+            "level_two_perfect": false,
+            "level_three_perfect": false,
+            "level_four_perfect": false,
+            "all_perfect": false
+        }
+    }
+}
+   ```
+   
+###### * `GET /api/v1/users/:id/games` returns all users games  
+
+Example response:
+
 ```
 {
     "data": {
@@ -126,11 +165,65 @@ Example response:
     }
 }
 ```
+
 ### Users
 
-* `GET /api/v1/dashboard` returns the logged in user's data (owner of JWT)
+###### * `POST /api/v1/users` creates a user
+  * required body parameters: `{email, first_name, last_name, role, password, password_confirmation}`  
+  
+Example request:
+
+```
+{              
+  email: "example@mail.com",
+  first_name: "billy",
+  last_name: "bob",
+  role: 0,
+  password: "password",
+  password_confirmation: "password"
+}
+```
 
 Example response:
+
+``` 
+{
+ “success”: “Account successfully created!”
+}
+```
+
+###### * `POST /login` logs in a user
+  * required body parameters: `{email, password}`  
+  
+Example request:
+
+```
+{              
+  email: "example@mail.com",
+  password: "password"
+}
+```
+
+Example response:
+
+``` 
+{
+    "access_token":       "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1NDYxMzY3MTN9.ycGG6AF_2bnqDpuZHauBH3e2DIqq8gxjJYeHGpiVAo0",
+    "message": "Login Successful",
+    "user": {
+        "id": 3,
+        "email": "dmeskis@gmail.com",
+        "first_name": "dylan",
+        "last_name": "meskis",
+        "avatar": 1
+    }
+}
+```
+
+###### * `GET /api/v1/dashboard` returns the logged in user's data (bearer of JWT)
+
+Example response:
+
 ```
 {
     "data": {
@@ -185,59 +278,11 @@ Example response:
     }
 }
  ```
-
-* `POST /api/v1/users` creates a user
-  * required body parameters: `{email, first_name, last_name, role, password, password_confirmation}`  
-  
-Example request:
-
-```
-{              
-  email: "example@mail.com",
-  first_name: "billy",
-  last_name: "bob",
-  role: 0,
-  password: "password",
-  password_confirmation: "password"
-}
-```
-Example response:
-``` 
-{
- “success”: “Account successfully created!”
-}
-```
-
-* `POST /login` logs in a user
-  * required body parameters: `{email, password}`  
-  
-Example request:
-
-```
-{              
-  email: "example@mail.com",
-  password: "password"
-}
-```
-Example response:
-``` 
-{
-    "access_token":       "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1NDYxMzY3MTN9.ycGG6AF_2bnqDpuZHauBH3e2DIqq8gxjJYeHGpiVAo0",
-    "message": "Login Successful",
-    "user": {
-        "id": 3,
-        "email": "dmeskis@gmail.com",
-        "first_name": "dylan",
-        "last_name": "meskis",
-        "avatar": 1
-    }
-}
-```
-
-
-* `GET /api/v1/users/:id` returns a specific users data  
+ 
+###### * `GET /api/v1/users/:id` returns a specific user's data  
 
 Example response:
+
 ```
 {
     "data": {
@@ -293,7 +338,7 @@ Example response:
 }
 ```
 
-* `PATCH /api/v1/users` updates a user's attributes
+###### * `PATCH /api/v1/users` updates a user's attributes
   * required body parameters: `{current_password}`
   * optional body parameters: `{email, first_name, last_name, avatar, password}`  
   
@@ -306,7 +351,9 @@ Example request:
   current_password: "password"
 }
 ``` 
+
 Example response:
+
 ``` 
 {
     "data": {
@@ -333,7 +380,7 @@ Example response:
 
 ### Password Reset
 
-* `POST /api/v1/password/forgot` sends an email to the user with a reset password token
+###### * `POST /password/forgot` sends an email to the user with a reset password token
   * required body parameters: `{email}`
   
 Example request:
@@ -345,16 +392,18 @@ Example request:
 ```
 
 Example response:
+
 ```
 {
  "success": 'Please check your email to reset your password.'
 }
 ```
 
-* `POST /api/v1/password/reset` resets the users password
+###### * `POST /password/reset` resets the users password
     * required body parameters: `{token, password}`
     
 Example request:
+
 ```
 {
  "password": "newpassword", 
@@ -363,6 +412,7 @@ Example request:
 ```
 
 Example response:
+
 ```
 {
  "success": "Password successfully reset!"
@@ -371,9 +421,10 @@ Example response:
 
 ### Badges
 
-* `GET /api/v1/users/:id/badges` returns all of a users badges  
+###### * `GET /api/v1/users/:id/badges` returns all of a users badges  
 
 Example response:
+
 ```
 {
     "data": {
@@ -410,7 +461,7 @@ Example response:
 
 ### Classes
 
-* `POST /api/v1/classes` creates a class
+###### * `POST /api/v1/classes` creates a class
 
 Example request:
 
@@ -419,7 +470,9 @@ Example request:
  name: "My class"
 }
 ```
+
 Example response:
+
 ``` 
 {
   "data"=>{
@@ -433,7 +486,7 @@ Example response:
 }
 ```
 
-* `POST /api/v1/users/:id/classes` adds a user to a class
+###### * `POST /api/v1/users/:id/classes` adds a user to a class
 
 Example request:
 
@@ -442,21 +495,35 @@ Example request:
  class_key: klass.class_key
 }
 ```
+
 Example response:
+
 ``` 
 {
   "success"=>"Successfully added Granville Willms to Test Class."
 }
 ```
 
-* `DELETE /api/v1/classes/:id` deletes a class
-  * User must be logged in and be the teacher who created the class to delete a class
+###### * `DELETE /api/v1/classes/:id` deletes a class
+  * User **MUST** be the teacher who created the class to delete a class
 
 
 Example response:
+
 ``` 
 {
   "success"=>"Successfully deleted Mr. Monk's Class."
+}
+```
+
+###### * `DELETE /api/v1/users/:id/classes/:klass_id` deletes a user from a class
+  * User making the request **MUST** be a teacher or a student attempting to remove themselves from a class.
+  
+Example response: 
+
+```
+{
+ "success": "Successfully removed Billy Joel from Mr. Poen's Class."
 }
 ```
 
