@@ -527,3 +527,62 @@ Example response:
 }
 ```
 
+### Leaderboards
+
+###### * `GET /api/v1/leaderboards` returns top 100 scores for each level specified by type
+ * must specify which level you wish to retrieve the highscores for in the body of the request
+ * valid fields: {'level_one', 'level_two', 'level_three', 'level_four', 'overall'}
+ 
+Example request:
+
+```
+{
+ "type": "level_one"
+}
+```
+
+Example response: 
+
+```
+{
+    "data": [
+        {
+            "id": "7",
+            "type": "user",
+            "attributes": {
+                "first_name": "Sterling",
+                "last_name": "Archer",
+                "highscore": 8801
+            }
+        },
+        {
+            "id": "1",
+            "type": "user",
+            "attributes": {
+                "first_name": "Chet",
+                "last_name": "Manly",
+                "highscore": 9401
+            }
+        },
+        {
+            "id": "5",
+            "type": "user",
+            "attributes": {
+                "first_name": "Cyril",
+                "last_name": "Figgis",
+                "highscore": 11401
+            }
+        },
+        {
+            "id": "3",
+            "type": "user",
+            "attributes": {
+                "first_name": "Dylan",
+                "last_name": "Meskis",
+                "highscore": 111535
+            }
+        }
+    ]
+}
+```
+
