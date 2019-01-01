@@ -13,7 +13,7 @@ describe 'klass api', :type => :request do
         class_key: klass.class_key
       }
 
-      post "/api/v1/users/#{user.id}/class", :params => body
+      post "/api/v1/users/#{user.id}/classes", :params => body
 
       parsed = JSON.parse(response.body)
       expect(response).to be_successful
@@ -29,7 +29,7 @@ describe 'klass api', :type => :request do
         class_key: "N07 4 R341 |<3Y"
       }
 
-      post "/api/v1/users/#{user.id}/class", :params => body
+      post "/api/v1/users/#{user.id}/classes", :params => body
 
       parsed = JSON.parse(response.body)
       expect(response.status).to eq(404)
@@ -43,7 +43,7 @@ describe 'klass api', :type => :request do
         class_key: klass.class_key
       }
 
-      post "/api/v1/users/#{user.id}/class", :params => body
+      post "/api/v1/users/#{user.id}/classes", :params => body
 
       parsed = JSON.parse(response.body)
       expect(response).to be_successful
@@ -60,7 +60,7 @@ describe 'klass api', :type => :request do
         class_key: klass.class_key
       }
 
-      post "/api/v1/users/#{user.id}/class", :params => body
+      post "/api/v1/users/#{user.id}/classes", :params => body
       parsed = JSON.parse(response.body)
       expect(response.status).to eq(400)
       expect(parsed["error"]).to eq("Unable to join #{klass.name}. You have already joined the class.")

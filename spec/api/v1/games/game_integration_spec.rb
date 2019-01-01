@@ -9,7 +9,7 @@ describe 'game integration', :type => :request do
       key = JSON.parse(response.body)["access_token"]
 
       body = {
-        perfectScores: { "one": true, "two": true, three: true, four: true, all: false },
+        perfect_scores: { "one": true, "two": true, three: true, four: true, all: false },
         times: {"one": 11111, "two": 22222, "three": nil, "four": nil, all: 33333}
       }
 

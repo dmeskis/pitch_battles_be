@@ -42,7 +42,7 @@ describe 'badge analysis integration spec', :type => :request do
     # Post a user game
 
     patch_body = {              
-        perfectScores: { one: true, two: true, three: true, four: false, all: false },
+        perfect_scores: { one: true, two: true, three: true, four: false, all: false },
         times: { one: 11111, two: 22222, three: 33333, four: 44444, all: 55555 }
     }
 

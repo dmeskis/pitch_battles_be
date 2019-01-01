@@ -41,16 +41,16 @@ class Api::V1::GamesController < ApplicationController
         level_four_duration: params[:times][:four],
         total_duration: params[:times][:all],
         user_id: @current_user.id,
-        level_one_perfect: params[:perfectScores][:one],
-        level_two_perfect: params[:perfectScores][:two],
-        level_three_perfect: params[:perfectScores][:three],
-        level_four_perfect: params[:perfectScores][:four],
-        all_perfect: params[:perfectScores][:all]
+        level_one_perfect: params[:perfect_scores][:one],
+        level_two_perfect: params[:perfect_scores][:two],
+        level_three_perfect: params[:perfect_scores][:three],
+        level_four_perfect: params[:perfect_scores][:four],
+        all_perfect: params[:perfect_scores][:all]
       )
     end
 
     def valid_params?
-      unless params[:times] && params[:perfectScores]
+      unless params[:times] && params[:perfect_scores]
         render json: {error: "Invalid game data."}, status: 422
       end
     end
