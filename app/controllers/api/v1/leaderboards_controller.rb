@@ -2,7 +2,10 @@ class Api::V1::LeaderboardsController < ApplicationController
   before_action :get_highscores
 
   def index
-    binding.pry
+    options = {}
+    options[:is_collection] = true
+    options[:params] = {level: leaderboards_params[:type]}
+    render json: LeaderboardSerializer.new(@scores, options).serialized_json, status: 200
   end
 
   private
