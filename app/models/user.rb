@@ -32,6 +32,26 @@ class User < ApplicationRecord
     self.password = password
     save!
   end
+
+  def self.level_one_highscores
+    order(level_one_fastest_time: :asc).limit(100)
+  end
+
+  def self.level_two_highscores
+    order(level_two_fastest_time: :asc).limit(100)
+  end
+
+  def self.level_three_highscores
+    order(level_three_fastest_time: :asc).limit(100)
+  end
+
+  def self.level_four_highscores
+    order(level_four_fastest_time: :asc).limit(100)
+  end
+
+  def self.overall_highscores
+    order(total_fastest_time: :asc).limit(100)
+  end
   
   private
   
