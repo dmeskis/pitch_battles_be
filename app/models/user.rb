@@ -34,23 +34,23 @@ class User < ApplicationRecord
   end
 
   def self.level_one_highscores
-    order(level_one_fastest_time: :asc).limit(100)
+    order(level_one_fastest_time: :asc).where.not(level_one_fastest_time: 0).limit(100)
   end
 
   def self.level_two_highscores
-    order(level_two_fastest_time: :asc).limit(100)
+    order(level_two_fastest_time: :asc).where.not(level_two_fastest_time: 0).limit(100)
   end
 
   def self.level_three_highscores
-    order(level_three_fastest_time: :asc).limit(100)
+    order(level_three_fastest_time: :asc).where.not(level_three_fastest_time: 0).limit(100)
   end
 
   def self.level_four_highscores
-    order(level_four_fastest_time: :asc).limit(100)
+    order(level_four_fastest_time: :asc).where.not(level_four_fastest_time: 0).limit(100)
   end
 
   def self.overall_highscores
-    order(total_fastest_time: :asc).limit(100)
+    order(total_fastest_time: :asc).where.not(total_fastest_time: 0).limit(100)
   end
   
   private
