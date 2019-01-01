@@ -1,7 +1,7 @@
 class LeaderboardSerializer
   include FastJsonapi::ObjectSerializer
   attributes :first_name, :last_name
-  set_type :highscore
+  set_type :user
   
   attribute :highscore do |user, params|
     case params[:level]

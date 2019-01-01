@@ -18,6 +18,10 @@ describe 'leaderboards', :type => :request do
 
       json = JSON.parse(response.body)
       expect(response).to be_successful
+      expect(json[:data][:type]).to contain_exactly('highscore')
+      expect(json[:data][0][:attributes]).to contain_exactly('highscore')
+      expect(json[:data][0][:attributes][:highscore]).to_not eq(0)
+      binding.pry
     end
   end
 end
