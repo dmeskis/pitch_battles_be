@@ -1,8 +1,8 @@
 class Api::V1::GamesController < ApplicationController
   before_action :valid_params?, only: :create
-  before_action :set_variables, only: :show
 
   def show
+    @game = Game.where(id: params[:id]).first
     if @game
       render json: GameSerializer.new(@game).serialized_json, status: 200
     else
@@ -12,8 +12,8 @@ class Api::V1::GamesController < ApplicationController
 
   def create
     game = create_game
-    if game.save
-      analysis = BadgeAnalysis.new(game).analyze
+    if create_game.save
+      BadgeAnalysis.new(game).analyze
       render json: GameSerializer.new(game).serialized_json, status: 200
     else
       render json: {"error": "Failed to save game. Check error logs."}, status: 500
@@ -27,10 +27,6 @@ class Api::V1::GamesController < ApplicationController
                     :times,
                     :perfectScores
                     )
-    end
-
-    def set_variables
-      @game = Game.where(id: params[:id]).first
     end
 
     def create_game
