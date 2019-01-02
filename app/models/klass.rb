@@ -52,7 +52,7 @@ class Klass < ApplicationRecord
     if most.nil?
       nil
     end
-    { badges: most.badges.count, user: User.where(total_games_played: most.badges.count) }
+    { badges: most.badges.count, user: User.where(id: most.id) }
   end
 
   private
