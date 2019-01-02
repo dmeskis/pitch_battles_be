@@ -40,8 +40,8 @@ describe 'class dashboard integration', :type => :request do
       end
 
       expect(result).to be(l1_fastest)
-      expect(User.find(body["data"]["attributes"]["most_badges"]["id"])).to eq(klass.most_badges)
-      expect(User.find(body["data"]["attributes"]["most_games"]["id"])).to eq(klass.most_games)
+      expect(body["data"]["attributes"]["most_badges"]["badges"]).to eq(klass.most_badges[:badges])
+      expect(body["data"]["attributes"]["most_games"]["total_games"]).to eq(klass.most_games[:total_games])
     end
   end
 end
