@@ -7,7 +7,7 @@ class Api::V1::TeacherDashboardController < ApplicationController
     if @klasses.present?
       render json: KlassSerializer.new(@klasses).serialized_json, status: 200
     else
-      render json: {error: "No classes found."}
+      render json: {error: "No classes found."}, status: 404
     end
   end
 

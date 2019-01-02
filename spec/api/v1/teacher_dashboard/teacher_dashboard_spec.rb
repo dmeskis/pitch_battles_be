@@ -30,6 +30,17 @@ describe 'teacher dashboard integration', :type => :request do
       body = JSON.parse(response.body)
       expect(response.status).to eq(401)
     end
+    it '404 if no classes' do
+      create_teacher
+      login
+      user = User.first
+
+      key = JSON.parse(response.body)["access_token"]
+
+      get "/api/v1/teacher_dashboard", :headers => {'AUTHORIZATION': "bearer #{key}"}
+      body = JSON.parse(response.body)
+      expect(response.status).to eq(404)
+    end
   end
   describe 'show' do
     it 'gets teacher classes' do
@@ -57,7 +68,7 @@ describe 'teacher dashboard integration', :type => :request do
       expect(body["data"]["attributes"]["most_badges"]["badges"]).to eq(klass.most_badges[:badges])
       expect(body["data"]["attributes"]["most_games"]["total_games"]).to eq(klass.most_games[:total_games])
     end
-    it 'errors if not teachers classe' do
+    it 'errors if not teachers classes' do
       create_teacher
       login
       user = User.first
@@ -69,8 +80,19 @@ describe 'teacher dashboard integration', :type => :request do
 
       get "/api/v1/teacher_dashboard/classes/#{klass.id}", :headers => {'AUTHORIZATION': "bearer #{key}"}
       body = JSON.parse(response.body)
-      binding.pry
       expect(response.status).to eq(401)
+    end
+    it '404 if class not found' do
+      create_teacher
+      login
+      user = User.first
+      user_2 = create(:user, role: 1)
+
+      key = JSON.parse(response.body)["access_token"]
+
+      get "/api/v1/teacher_dashboard/classes/-1", :headers => {'AUTHORIZATION': "bearer #{key}"}
+      body = JSON.parse(response.body)
+      expect(response.status).to eq(404)
     end
   end
 end
