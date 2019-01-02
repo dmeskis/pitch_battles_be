@@ -23,6 +23,7 @@ Pitch Battles API is the back-end application handling data and authorization fo
   * [Badges](#badges)  
         - [`GET /api/v1/users/:id/badges`](#-get-apiv1usersidbadges-returns-all-of-a-users-badges)
   * [Classes](#classes)  
+        - [`GET /api/v1/class_dashboard`](#-get-apiv1class_dashboard-gets-class-dashboard-information-for-current-user)  
         - [`POST /api/v1/classes`](#-post-apiv1classes-creates-a-class)  
         - [`POST /api/v1/users/:id/classes`](#-post-apiv1usersidclasses-adds-a-user-to-a-class)  
         - [`DELETE /api/v1/classes/:id`](#-delete-apiv1classesid-deletes-a-class)  
@@ -460,6 +461,185 @@ Example response:
 ```
 
 ### Classes
+
+###### * `GET /api/v1/class_dashboard` gets class dashboard information for current user
+
+Example response: 
+
+```
+{
+    "data": {
+        "id": "5",
+        "type": "class_dashboard",
+        "attributes": {
+            "name": "6th Grade Orchestra",
+            "class_key": "K5s5qCQfHTYYldIhDcmGQg",
+            "teacher": {
+                "data": {
+                    "id": "6",
+                    "type": "bare_user",
+                    "attributes": {
+                        "email": "relasine@gmail.com",
+                        "first_name": "Kevin",
+                        "last_name": "Simpson",
+                        "avatar": 1,
+                        "role": "teacher",
+                        "level_one_fastest_time": 0,
+                        "level_two_fastest_time": 0,
+                        "level_three_fastest_time": 0,
+                        "level_four_fastest_time": 0,
+                        "total_games_played": 0
+                    }
+                }
+            },
+            "level_one_fastest_time": {
+                "score": 9401,
+                "user": {
+                    "data": [
+                        {
+                            "id": "1",
+                            "type": "bare_user",
+                            "attributes": {
+                                "email": "simpsonkevinjohn@gmail.com",
+                                "first_name": "Chet",
+                                "last_name": "Manly",
+                                "avatar": 11,
+                                "role": "student",
+                                "level_one_fastest_time": 9401,
+                                "level_two_fastest_time": 15412,
+                                "level_three_fastest_time": 21217,
+                                "level_four_fastest_time": 27623,
+                                "total_games_played": 23
+                            }
+                        }
+                    ]
+                }
+            },
+            "level_two_fastest_time": {
+                "score": 15412,
+                "user": {
+                    "data": [
+                        {
+                            "id": "1",
+                            "type": "bare_user",
+                            "attributes": {
+                                "email": "simpsonkevinjohn@gmail.com",
+                                "first_name": "Chet",
+                                "last_name": "Manly",
+                                "avatar": 11,
+                                "role": "student",
+                                "level_one_fastest_time": 9401,
+                                "level_two_fastest_time": 15412,
+                                "level_three_fastest_time": 21217,
+                                "level_four_fastest_time": 27623,
+                                "total_games_played": 23
+                            }
+                        }
+                    ]
+                }
+            },
+            "level_three_fastest_time": {
+                "score": 21217,
+                "user": {
+                    "data": [
+                        {
+                            "id": "1",
+                            "type": "bare_user",
+                            "attributes": {
+                                "email": "simpsonkevinjohn@gmail.com",
+                                "first_name": "Chet",
+                                "last_name": "Manly",
+                                "avatar": 11,
+                                "role": "student",
+                                "level_one_fastest_time": 9401,
+                                "level_two_fastest_time": 15412,
+                                "level_three_fastest_time": 21217,
+                                "level_four_fastest_time": 27623,
+                                "total_games_played": 23
+                            }
+                        }
+                    ]
+                }
+            },
+            "level_four_fastest_time": {
+                "score": 27623,
+                "user": {
+                    "data": [
+                        {
+                            "id": "1",
+                            "type": "bare_user",
+                            "attributes": {
+                                "email": "simpsonkevinjohn@gmail.com",
+                                "first_name": "Chet",
+                                "last_name": "Manly",
+                                "avatar": 11,
+                                "role": "student",
+                                "level_one_fastest_time": 9401,
+                                "level_two_fastest_time": 15412,
+                                "level_three_fastest_time": 21217,
+                                "level_four_fastest_time": 27623,
+                                "total_games_played": 23
+                            }
+                        }
+                    ]
+                }
+            },
+            "overall_fastest_time": {
+                "score": 33333,
+                "user": {
+                    "data": [
+                        {
+                            "id": "3",
+                            "type": "bare_user",
+                            "attributes": {
+                                "email": "dmeskis@gmail.com",
+                                "first_name": "Dylan",
+                                "last_name": "Meskis",
+                                "avatar": 11,
+                                "role": "student",
+                                "level_one_fastest_time": 111535,
+                                "level_two_fastest_time": 115555,
+                                "level_three_fastest_time": 1234134,
+                                "level_four_fastest_time": 0,
+                                "total_games_played": 7
+                            }
+                        }
+                    ]
+                }
+            },
+            "most_games": {
+                "games_played": 23,
+                "user": [
+                    {
+                        "id": 1,
+                        "email": "simpsonkevinjohn@gmail.com",
+                        "first_name": "Chet",
+                        "last_name": "Manly",
+                        "role": "student",
+                        "password_digest": "$2a$10$Klnw1KzrpnXcFlFuJSK7v.RPe.BXnDtAtRh6OdhT9QgOu5tG3O7zi",
+                        "avatar": 11,
+                        "created_at": "2018-12-29T20:38:01.264Z",
+                        "updated_at": "2019-01-02T18:29:54.776Z",
+                        "level_one_fastest_time": 9401,
+                        "level_two_fastest_time": 15412,
+                        "level_three_fastest_time": 21217,
+                        "level_four_fastest_time": 27623,
+                        "total_fastest_time": 73653,
+                        "total_games_played": 23,
+                        "reset_password_token": null,
+                        "reset_password_sent_at": "2019-01-02T03:39:05.224Z",
+                        "klass_id": 5
+                    }
+                ]
+            },
+            "most_badges": {
+                "badges": 12,
+                "user": []
+            }
+        }
+    }
+}
+```
 
 ###### * `POST /api/v1/classes` creates a class
 
