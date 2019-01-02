@@ -1,4 +1,5 @@
 class Api::V1::TeacherDashboardController < ApplicationController
+  before_action :class_exists?, only: :show
   before_action :is_teacher?
 
   def index
@@ -11,11 +12,10 @@ class Api::V1::TeacherDashboardController < ApplicationController
   end
 
   def show
-    @klass = Klass.find_by(id: params[:id])
-    if @klass != nil
+    if is_teacher_of_class?(@klass)
       render json: TeacherDashboardSerializer.new(@klass).serialized_json
     else
-      render json: {error: "Class not found." }, status: 404
+      render json: {"error": "You must be the teacher of this class to view it"}, status: 401
     end
   end
 
@@ -27,10 +27,15 @@ class Api::V1::TeacherDashboardController < ApplicationController
     end
   end
 
-  def is_teacher_of_class?(klass)
-    unless klass.teacher == @current_user
-      render json: {"error": "You must be the teacher of this class to view it"}, status: 401
+  def class_exists?
+    @klass = Klass.find_by(id: params[:id])
+    unless @klass
+      render json: {"error": "Class not found"}, status: 404
     end
+  end
+
+  def is_teacher_of_class?(klass)
+    klass.teacher == @current_user
   end 
 
 end
