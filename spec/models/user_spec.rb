@@ -28,11 +28,6 @@ RSpec.describe User, type: :model do
       expect(user.attributes).to include("level_three_fastest_time")
       expect(user.attributes).to include("level_four_fastest_time")
       expect(user.attributes).to include("total_fastest_time")
-      expect(user.level_one_fastest_time).to eq(0)
-      expect(user.level_two_fastest_time).to eq(0)
-      expect(user.level_three_fastest_time).to eq(0)
-      expect(user.level_four_fastest_time).to eq(0)
-      expect(user.total_fastest_time).to eq(0)
     end
   end
   describe 'validations' do
