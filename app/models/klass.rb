@@ -38,6 +38,14 @@ class Klass < ApplicationRecord
   end
 
   def most_badges
+    most = users.select("users.id, count(badges.id) AS badge_count").
+            joins(:user_badges).
+            joins(:badges).
+            group("users.id").
+            order("badge_count DESC").
+            limit(1).
+            first
+
     binding.pry
   end
 

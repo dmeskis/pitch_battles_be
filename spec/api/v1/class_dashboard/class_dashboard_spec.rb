@@ -12,8 +12,12 @@ describe 'class dashboard integration', :type => :request do
       klass = create(:klass)
       klass.users << user
       10.times do
-        create(:user, klass_id: klass.id)
+        user = create(:user, klass_id: klass.id)
+        rand(0..10).times do
+          user.badges << create(:badge)
+        end
       end
+
 
       key = JSON.parse(response.body)["access_token"]
 
