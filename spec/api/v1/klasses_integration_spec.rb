@@ -16,7 +16,7 @@ describe 'game api', :type => :request do
       post "/api/v1/classes", :params => class_body, :headers => {'AUTHORIZATION': "bearer #{key}"}
       parsed = JSON.parse(response.body)
       expect(response.status).to eq(200)
-      expect(parsed["data"]["attributes"].keys).to contain_exactly("name", "class_key")
+      expect(parsed["data"]["attributes"].keys).to contain_exactly('id', "name", "class_key")
       expect(Klass.first.class_key).to eq(parsed["data"]["attributes"]["class_key"])
     end
     it 'cannot create a class if user is not teacher' do
