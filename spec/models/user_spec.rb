@@ -44,7 +44,7 @@ RSpec.describe User, type: :model do
     it { should validate_uniqueness_of :email }
   end
   describe 'relationships' do
-    it { should belong_to :klasses }
+    it { should belong_to :klass }
     it { should have_many :games }
     it { should have_many :badges }
     it 'cannot have duplicate badges' do

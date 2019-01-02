@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2018_12_29_192621) do
-
+ActiveRecord::Schema.define(version: 2019_01_02_000312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,15 +66,6 @@ ActiveRecord::Schema.define(version: 2018_12_29_192621) do
     t.index ["user_id"], name: "index_user_badges_on_user_id"
   end
 
-  create_table "user_klasses", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "klass_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["klass_id"], name: "index_user_klasses_on_klass_id"
-    t.index ["user_id"], name: "index_user_klasses_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "first_name", limit: 32
@@ -94,6 +83,7 @@ ActiveRecord::Schema.define(version: 2018_12_29_192621) do
     t.integer "level_four_fastest_time", default: 0
     t.integer "total_fastest_time", default: 0
     t.integer "total_games_played", default: 0
+    t.integer "klass_id"
   end
 
   add_foreign_key "games", "users"
@@ -102,6 +92,5 @@ ActiveRecord::Schema.define(version: 2018_12_29_192621) do
   add_foreign_key "klasses", "users", column: "teacher_id"
   add_foreign_key "user_badges", "badges"
   add_foreign_key "user_badges", "users"
-  add_foreign_key "user_klasses", "klasses"
-  add_foreign_key "user_klasses", "users"
+  add_foreign_key "users", "klasses"
 end

@@ -77,7 +77,6 @@ describe 'klass api', :type => :request do
       klass = create(:klass, teacher_id: user.id)
 
       user_2 = create(:user, role: 0)
-
       klass.users << user
 
       body =  {
