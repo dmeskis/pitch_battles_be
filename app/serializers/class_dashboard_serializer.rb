@@ -2,7 +2,7 @@ class ClassDashboardSerializer
   include FastJsonapi::ObjectSerializer
   attributes :name, :class_key
   attribute :teacher do |klass|
-    klass.teacher
+    BareUserSerializer.new(klass.teacher)
   end
 
   attribute :level_one_fastest_time do |klass|
