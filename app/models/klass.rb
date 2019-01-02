@@ -49,9 +49,7 @@ class Klass < ApplicationRecord
             order("badge_count DESC").
             limit(1).
             first
-    if most.nil?
-      nil
-    end
+    if most.nil? then nil end
     { badges: most.badges.count, user: BareUserSerializer.new(User.where(id: most.id)) }
   end
 
