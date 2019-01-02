@@ -4,7 +4,6 @@ class Api::V1::TeacherDashboardController < ApplicationController
   def show
     @klass = Klass.find_by(teacher_id: @current_user.id)
     if @klass != nil
-      binding.pry
       render json: TeacherDashboardSerializer.new(@klass).serialized_json
     else
       render json: {error: "No classes found" }, status: 404

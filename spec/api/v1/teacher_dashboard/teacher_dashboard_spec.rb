@@ -27,7 +27,6 @@ describe 'teacher dashboard integration', :type => :request do
       get "/api/v1/teacher_dashboard", :headers => {'AUTHORIZATION': "bearer #{key}"}
       body = JSON.parse(response.body)
 
-      binding.pry
       expect(body["data"]["attributes"]["most_badges"]["badges"]).to eq(klass.most_badges[:badges])
       expect(body["data"]["attributes"]["most_games"]["total_games"]).to eq(klass.most_games[:total_games])
     end
