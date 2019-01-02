@@ -332,8 +332,15 @@ Example response:
                     }
                 ]
             },
-            "classes": {
-                "data": []
+            "class": {
+                "data": {
+                    "id": "5",
+                    "type": "klass",
+                    "attributes": {
+                        "name": "6th Grade Orchestra",
+                        "class_key": "K5s5qCQfHTYYldIhDcmGQg"
+                    }
+                }
             }
         }
     }
