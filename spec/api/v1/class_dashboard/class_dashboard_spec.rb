@@ -42,5 +42,17 @@ describe 'class dashboard integration', :type => :request do
       expect(body["data"]["attributes"]["most_badges"]["badges"]).to eq(klass.most_badges[:badges])
       expect(body["data"]["attributes"]["most_games"]["total_games"]).to eq(klass.most_games[:total_games])
     end
+    it '404 if no user class' do
+      create_student
+      login
+      user = User.first
+
+      key = JSON.parse(response.body)["access_token"]
+
+      get "/api/v1/class_dashboard", :headers => {'AUTHORIZATION': "bearer #{key}"}
+      json = JSON.parse(response.body)
+      expect(response.status).to eq(404)
+      expect(json["error"]).to eq("No class associated with user.")
+    end
   end
 end
