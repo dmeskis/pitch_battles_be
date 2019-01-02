@@ -13,7 +13,7 @@ class User < ApplicationRecord
   before_save :downcase_email
 
   def downcase_email
-      self.email.downcase! unless self.email.nil?
+    self.email.downcase! unless self.email.nil?
   end
 
   def generate_password_token!

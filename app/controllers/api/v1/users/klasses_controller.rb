@@ -1,6 +1,6 @@
 class Api::V1::Users::KlassesController < ApplicationController
   before_action :key_present?, only: :create
-  before_action :set_create_variables, only: :create
+  before_action :ready_create, only: :create
   before_action :prevent_duplicate, only: :create
   before_action :validate_user, only: :destroy
 
@@ -32,7 +32,7 @@ class Api::V1::Users::KlassesController < ApplicationController
     end
   end
 
-  def set_create_variables
+  def ready_create
     @user = User.where(id: klass_params[:id]).first
     @klass = Klass.find_by(class_key: klass_params[:class_key])
     unless @user && @klass

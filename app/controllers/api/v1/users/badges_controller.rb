@@ -1,5 +1,5 @@
 class Api::V1::Users::BadgesController < ApplicationController
-  before_action :set_variables
+  before_action :set_user
 
   def index
     if @user
@@ -9,9 +9,4 @@ class Api::V1::Users::BadgesController < ApplicationController
     end
   end
 
-  private 
-
-  def set_variables
-    @user = User.where(id: params[:id]).first
-  end
 end

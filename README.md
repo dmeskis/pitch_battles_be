@@ -23,7 +23,7 @@ Pitch Battles API is the back-end application handling data and authorization fo
   * [Badges](#badges)  
         - [`GET /api/v1/users/:id/badges`](#-get-apiv1usersidbadges-returns-all-of-a-users-badges)
   * [Classes](#classes)  
-        - [`GET /api/v1/teacher_dashboard`]()
+        - [`GET /api/v1/teacher_dashboard`](#-get-apiv1teacher_dashboard-gets-teacher-dashboard-information-for-current-user)  
         - [`GET /api/v1/class_dashboard`](#-get-apiv1class_dashboard-gets-class-dashboard-information-for-current-user)  
         - [`POST /api/v1/classes`](#-post-apiv1classes-creates-a-class)  
         - [`POST /api/v1/users/:id/classes`](#-post-apiv1usersidclasses-adds-a-user-to-a-class)  
@@ -57,18 +57,25 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 ###### * `POST /api/v1/games` creates and saves a game to the database
   * required body parameters: `{perfect_scores, times}` 
   
-Example request:
-
-```
+<details><summary>Example request:</summary>
+ 
+<p>
+ 
+```javascript
 {
     "perfect_scores": { "one": true, "two": false, "three": false, "four": false, "all": false },
     "times": {"one": 111535, "two": 115555, "three": 1234134, "four": null, "all": null}
 }
 ```
 
-Example response:
+ </p>
+</details>
 
-```
+<details><summary>Example response:</summary>
+ 
+<p>
+
+```javascript
 {
     "data": {
         "id": "17",
@@ -89,11 +96,16 @@ Example response:
 }
 ```
 
+ </p>
+</details>
+
 ###### * `GET /api/v1/games/:id` returns a single game by ID  
 
-Example response:
+<details><summary>Example response:</summary>
+ 
+<p>
 
-```
+```javascript
 {
     "data": {
         "id": "1",
@@ -114,11 +126,16 @@ Example response:
 }
    ```
    
+    </p>
+</details>
+
 ###### * `GET /api/v1/users/:id/games` returns all users games  
 
-Example response:
+<details><summary>Example response:</summary>
+ 
+<p>
 
-```
+```javascript
 {
     "data": {
         "id": "3",
@@ -168,14 +185,19 @@ Example response:
 }
 ```
 
+ </p>
+</details>
+
 ### Users
 
 ###### * `POST /api/v1/users` creates a user
   * required body parameters: `{email, first_name, last_name, role, password, password_confirmation}`  
   
-Example request:
+<details><summary>Example request:</summary>
+ 
+<p>
 
-```
+```javascript
 {              
   email: "example@mail.com",
   first_name: "billy",
@@ -186,29 +208,45 @@ Example request:
 }
 ```
 
-Example response:
+ </p>
+</details>
 
-``` 
+<details><summary>Example response:</summary>
+ 
+<p>
+
+```javascript
 {
  “success”: “Account successfully created!”
 }
 ```
 
+ </p>
+</details>
+
 ###### * `POST /login` logs in a user
   * required body parameters: `{email, password}`  
   
-Example request:
+<details><summary>Example request:</summary>
+ 
+<p>
 
-```
+```javascript
 {              
   email: "example@mail.com",
   password: "password"
 }
 ```
 
-Example response:
+ </p>
+</details>
 
-``` 
+<details><summary>Example response:</summary>
+ 
+<p>
+
+
+```javascript
 {
     "access_token":       "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1NDYxMzY3MTN9.ycGG6AF_2bnqDpuZHauBH3e2DIqq8gxjJYeHGpiVAo0",
     "message": "Login Successful",
@@ -222,11 +260,16 @@ Example response:
 }
 ```
 
+ </p>
+</details>
+
 ###### * `GET /api/v1/dashboard` returns the logged in user's data (bearer of JWT)
 
-Example response:
+<details><summary>Example response:</summary>
+ 
+<p>
 
-```
+```javascript
 {
     "data": {
         "id": "3",
@@ -281,11 +324,16 @@ Example response:
 }
  ```
  
+  </p>
+</details>
+ 
 ###### * `GET /api/v1/users/:id` returns a specific user's data  
 
-Example response:
+<details><summary>Example response:</summary>
+ 
+<p>
 
-```
+```javascript
 {
     "data": {
         "id": "1",
@@ -347,13 +395,19 @@ Example response:
 }
 ```
 
+ </p>
+</details>
+
 ###### * `PATCH /api/v1/users` updates a user's attributes
   * required body parameters: `{current_password}`
   * optional body parameters: `{email, first_name, last_name, avatar, password}`  
   
-Example request:
+<details><summary>Example request:</summary>
+ 
+<p>
 
-```
+
+```javascript
 {              
   first_name: "George",
   last_name: "Costanza",
@@ -361,9 +415,14 @@ Example request:
 }
 ``` 
 
-Example response:
+ </p>
+</details>
 
-``` 
+<details><summary>Example response:</summary>
+ 
+<p>
+
+```javascript
 {
     "data": {
         "id": "3",
@@ -387,54 +446,80 @@ Example response:
 }
 ```
 
+</p>
+</details>
+
 ### Password Reset
 
 ###### * `POST /password/forgot` sends an email to the user with a reset password token
   * required body parameters: `{email}`
   
-Example request:
+<details><summary>Example request:</summary>
+ 
+<p>
 
-```
+```javascript
 {              
  "email": "example@mail.com
 }
 ```
 
-Example response:
+ </p>
+</details>
 
-```
+<details><summary>Example response:</summary>
+ 
+<p>
+
+```javascript
 {
  "success": 'Please check your email to reset your password.'
 }
 ```
 
+ </p>
+</details>
+
 ###### * `POST /password/reset` resets the users password
     * required body parameters: `{token, password}`
     
-Example request:
+<details><summary>Example request:</summary>
+ 
+<p>
 
-```
+```javascript
 {
  "password": "newpassword", 
  "token": "0f8f5b078e9510f32660"
 }
 ```
 
-Example response:
+ </p>
+</details>
 
-```
+
+<details><summary>Example response:</summary>
+ 
+<p>
+
+```javascript
 {
  "success": "Password successfully reset!"
 }
 ```
 
+ </p>
+</details>
+
 ### Badges
 
 ###### * `GET /api/v1/users/:id/badges` returns all of a users badges  
 
-Example response:
+<details><summary>Example response:</summary>
+ 
+<p>
 
-```
+```javascript
 {
     "data": {
         "id": "1",
@@ -468,13 +553,18 @@ Example response:
 }
 ```
 
+ </p>
+</details>
+
 ### Classes
 
 ###### * `GET /api/v1/teacher_dashboard` gets teacher dashboard information for current user
 
-Example response:
+<details><summary>Example response:</summary>
+ 
+<p>
 
-```
+```javascript
 {
     "data": {
         "id": "5",
@@ -752,11 +842,16 @@ Example response:
 }
 ```
 
+ </p>
+</details>
+
 ###### * `GET /api/v1/class_dashboard` gets class dashboard information for current user
 
-Example response: 
+<details><summary>Example response:</summary>
+ 
+<p>
 
-```
+```javascript
 {
     "data": {
         "id": "5",
@@ -948,19 +1043,30 @@ Example response:
 }
 ```
 
+
+ </p>
+</details>
+
 ###### * `POST /api/v1/classes` creates a class
 
-Example request:
+<details><summary>Example request:</summary>
+ 
+<p>
 
-```
+```javascript
 {
  name: "My class"
 }
 ```
 
-Example response:
+ </p>
+</details>
 
-``` 
+<details><summary>Example response:</summary>
+ 
+<p>
+
+```javascript
 {
   "data"=>{
             "id"=>"1",
@@ -973,46 +1079,70 @@ Example response:
 }
 ```
 
+ </p>
+</details>
+
 ###### * `POST /api/v1/users/:id/classes` adds a user to a class
 
-Example request:
+<details><summary>Example request:</summary>
+ 
+<p>
 
-```
+```javascript
 {
- class_key: klass.class_key
+ class_key: "HHDkjl6lspdMqHghsIu8WQ"
 }
 ```
 
-Example response:
+ </p>
+</details>
 
-``` 
+<details><summary>Example response:</summary>
+ 
+<p>
+
+```javascript
 {
   "success"=>"Successfully added Granville Willms to Test Class."
 }
 ```
 
+ </p>
+</details>
+
 ###### * `DELETE /api/v1/classes/:id` deletes a class
   * User **MUST** be the teacher who created the class to delete a class
 
 
-Example response:
+<details><summary>Example response:</summary>
+ 
+<p>
 
-``` 
+
+```javascript
 {
   "success"=>"Successfully deleted Mr. Monk's Class."
 }
 ```
 
+ </p>
+</details>
+
 ###### * `DELETE /api/v1/users/:id/classes/:klass_id` deletes a user from a class
   * User making the request **MUST** be a teacher or a student attempting to remove themselves from a class.
   
-Example response: 
+<details><summary>Example response:</summary>
+ 
+<p>
 
-```
+```javascript
 {
  "success": "Successfully removed Billy Joel from Mr. Poen's Class."
 }
 ```
+
+ </p>
+</details>
 
 ### Leaderboards
 
@@ -1020,15 +1150,22 @@ Example response:
  * must specify which level you wish to retrieve the highscores for in the body of the request
  * valid fields: {'level_one', 'level_two', 'level_three', 'level_four', 'overall'}
  
-Example request:
+<details><summary>Example request:</summary>
+ 
+<p>
 
-```
+```javascript
 {
  "type": "level_one"
 }
 ```
 
-Example response: 
+ </p>
+</details>
+
+<details><summary>Example response:</summary>
+ 
+<p>
 
 ```
 {
@@ -1072,4 +1209,7 @@ Example response:
     ]
 }
 ```
+
+ </p>
+</details>
 
