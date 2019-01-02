@@ -9,27 +9,27 @@ class Klass < ApplicationRecord
 
   def level_one_fastest_time
     fastest = self.users.where.not(level_one_fastest_time: 0).minimum(:level_one_fastest_time)
-    User.where(level_one_fastest_time: fastest)
+    { score: fastest, user: User.where(level_one_fastest_time: fastest) }
   end
 
   def level_two_fastest_time
     fastest = self.users.where.not(level_two_fastest_time: 0).minimum(:level_two_fastest_time)
-    User.where(level_two_fastest_time: fastest)
+    { score: fastest, user: User.where(level_two_fastest_time: fastest) }
   end
 
   def level_three_fastest_time
     fastest = self.users.where.not(level_three_fastest_time: 0).minimum(:level_three_fastest_time)
-    User.where(level_three_fastest_time: fastest)
+    { score: fastest, user: User.where(level_three_fastest_time: fastest) }
   end
 
   def level_four_fastest_time
     fastest = self.users.where.not(level_four_fastest_time: 0).minimum(:level_four_fastest_time)
-    User.where(level_four_fastest_time: fastest)
+    { score: fastest, user: User.where(level_four_fastest_time: fastest) }
   end
 
   def overall_fastest_time
     fastest = self.users.where.not(total_fastest_time: 0).minimum(:total_fastest_time)
-    User.where(total_fastest_time: fastest)
+    { score: fastest, user: User.where(total_fastest_time: fastest) }
   end
   
   def most_games
@@ -37,7 +37,7 @@ class Klass < ApplicationRecord
     if most == 0
       nil
     else
-      User.where(total_games_played: most).first
+      { games_played: most, user: User.where(total_games_played: most) }
     end
   end
 
@@ -52,7 +52,7 @@ class Klass < ApplicationRecord
     if most.nil?
       nil
     end
-    User.find(most.id)
+    { badges: most.badges.count, user: User.where(total_games_played: most.badges.count) }
   end
 
   private

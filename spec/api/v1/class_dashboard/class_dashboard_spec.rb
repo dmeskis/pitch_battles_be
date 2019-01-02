@@ -28,11 +28,11 @@ describe 'class dashboard integration', :type => :request do
       body = JSON.parse(response.body)
 
       students = [
-        l1_fastest = body["data"]["attributes"]["level_one_fastest_time"][0],
-        l2_fastest = body["data"]["attributes"]["level_two_fastest_time"][0],
-        l3_fastest = body["data"]["attributes"]["level_three_fastest_time"][0],
-        l4_fastest = body["data"]["attributes"]["level_four_fastest_time"][0],
-        l5_fastest = body["data"]["attributes"]["overall_fastest_time"][0],
+        l1_fastest = body["data"]["attributes"]["level_one_fastest_time"]['user'][0],
+        l2_fastest = body["data"]["attributes"]["level_two_fastest_time"]['user'][0],
+        l3_fastest = body["data"]["attributes"]["level_three_fastest_time"]['user'][0],
+        l4_fastest = body["data"]["attributes"]["level_four_fastest_time"]['user'][0],
+        l5_fastest = body["data"]["attributes"]["overall_fastest_time"]['user'][0],
       ]
 
       result = students.min_by do |student|
