@@ -34,7 +34,7 @@ klass = FactoryBot.create(:klass)
 
 # Add users to class
 User.all.each do |user|
-  klass.users << user
+  user.klass_id = klass.id
 end
 
 # Give each user a random badge

@@ -5,8 +5,7 @@ class User < ApplicationRecord
   validates_presence_of :first_name,
                         :last_name,
                         :role
-  has_many :user_klasses
-  has_many :klasses, -> { distinct }, through: :user_klasses
+  belongs_to :klass, optional: true
   has_many :games
   has_many :user_badges
   has_many :badges, -> { distinct }, through: :user_badges

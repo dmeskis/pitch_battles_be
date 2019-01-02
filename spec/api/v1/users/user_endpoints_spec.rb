@@ -73,7 +73,7 @@ describe 'user api', :type => :request do
                                                                  'total_games_played',
                                                                  'games', 
                                                                  'badges', 
-                                                                 'classes')
+                                                                 'class')
     end
     it 'does not return a users data which does not exit' do
       get "/api/v1/users/-1"
