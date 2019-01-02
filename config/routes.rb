@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   
   namespace :api do
     namespace :v1 do
+      get 'class_dashboard', to: 'class_dashboard#show'
       get 'dashboard', to: 'dashboard#show'
       get 'users/:id', to: 'users#show'
       get 'users/:id/badges', to: 'users/badges#index'

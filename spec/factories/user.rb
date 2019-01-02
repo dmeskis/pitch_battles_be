@@ -6,5 +6,11 @@ FactoryBot.define do
     role { 0}
     password { Faker::Internet.password }
     avatar { 1 }
+    level_one_fastest_time { Faker::Number.number(6) }
+    level_two_fastest_time { Faker::Number.number(6) }
+    level_three_fastest_time { Faker::Number.number(6) }
+    level_four_fastest_time { Faker::Number.number(6) }
+    total_fastest_time { Faker::Number.number(6) }
+    total_games_played { Faker::Number.number(2) }
   end
 end
