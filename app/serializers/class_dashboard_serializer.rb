@@ -24,5 +24,12 @@ class ClassDashboardSerializer
   attribute :overall_fastest_time do |klass|
     klass.overall_fastest_time
   end
-  
+
+  attribute :most_games do |klass|
+    klass.most_games
+  end
+
+  attribute :most_badges do |klass|
+    klass.most_badges
+  end
 end

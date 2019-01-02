@@ -19,7 +19,7 @@ describe 'class dashboard integration', :type => :request do
 
       get "/api/v1/class_dashboard", :headers => {'AUTHORIZATION': "bearer #{key}"}
       body = JSON.parse(response.body)
-      # expect(body["data"]["attributes"]).to eq(user.first_name)
+
       students = [
         l1_fastest = body["data"]["attributes"]["level_one_fastest_time"][0],
         l2_fastest = body["data"]["attributes"]["level_two_fastest_time"][0],
@@ -27,12 +27,12 @@ describe 'class dashboard integration', :type => :request do
         l4_fastest = body["data"]["attributes"]["level_four_fastest_time"][0],
         l5_fastest = body["data"]["attributes"]["overall_fastest_time"][0],
       ]
-      result = students.max_by do |student|
+
+      result = students.min_by do |student|
         student['level_one_fastest_time']
       end
-      expect(result).to be(l1_fastest) 
-
-      User.first.delete
+      expect(result).to be(l1_fastest)
+      expect(body["data"]["attributes"].keys).to contain('most_games', 'most_badges')
     end
   end
 end

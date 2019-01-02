@@ -11,6 +11,6 @@ FactoryBot.define do
     level_three_fastest_time { Faker::Number.number(6) }
     level_four_fastest_time { Faker::Number.number(6) }
     total_fastest_time { Faker::Number.number(6) }
-    total_games_played { Faker::Number.number(2) }
+    total_games_played { 0 }
   end
 end

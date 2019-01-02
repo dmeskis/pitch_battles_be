@@ -31,6 +31,15 @@ class Klass < ApplicationRecord
     fastest = self.users.where.not(total_fastest_time: 0).minimum(:total_fastest_time)
     User.where(total_fastest_time: fastest)
   end
+  
+  def most_games
+    most = users.maximum(:total_games_played)
+    User.where(total_games_played: most)
+  end
+
+  def most_badges
+    binding.pry
+  end
 
   private
 
