@@ -14,6 +14,9 @@ describe 'class dashboard integration', :type => :request do
       10.times do
         user = create(:user, klass_id: klass.id)
         rand(0..10).times do
+          create(:game, user_id: user.id)
+        end
+        rand(0..10).times do
           user.badges << create(:badge)
         end
       end
@@ -35,8 +38,10 @@ describe 'class dashboard integration', :type => :request do
       result = students.min_by do |student|
         student['level_one_fastest_time']
       end
+
       expect(result).to be(l1_fastest)
-      expect(body["data"]["attributes"].keys).to contain('most_games', 'most_badges')
+      expect(User.find(body["data"]["attributes"]["most_badges"]["id"])).to eq(klass.most_badges)
+      expect(User.find(body["data"]["attributes"]["most_games"]["id"])).to eq(klass.most_games)
     end
   end
 end

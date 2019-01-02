@@ -34,7 +34,11 @@ class Klass < ApplicationRecord
   
   def most_games
     most = users.maximum(:total_games_played)
-    User.where(total_games_played: most)
+    if most == 0
+      nil
+    else
+      User.where(total_games_played: most).first
+    end
   end
 
   def most_badges
@@ -45,8 +49,10 @@ class Klass < ApplicationRecord
             order("badge_count DESC").
             limit(1).
             first
-
-    binding.pry
+    if most.nil?
+      nil
+    end
+    User.find(most.id)
   end
 
   private
