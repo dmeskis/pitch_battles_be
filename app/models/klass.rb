@@ -34,7 +34,7 @@ class Klass < ApplicationRecord
   
   def most_games
     most = users.maximum(:total_games_played)
-    if most.zero?
+    if most.nil?
       return nil
     else
       { games_played: most, user: BareUserSerializer.new(User.where(total_games_played: most)) }
