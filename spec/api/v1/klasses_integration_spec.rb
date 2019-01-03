@@ -33,6 +33,19 @@ describe 'game api', :type => :request do
       expect(response.status).to eq(401)
       expect(parsed["error"]).to eq("Teacher privileges required.")
     end
+    it 'cannot create a class if name is blank' do
+      create_teacher
+      login
+
+      class_body = {
+      name: ""
+      }
+
+      key = JSON.parse(response.body)["access_token"]
+      post "/api/v1/classes", :params => class_body, :headers => {'AUTHORIZATION': "bearer #{key}"}
+      parsed = JSON.parse(response.body)
+      expect(response.status).to eq(422)
+    end
     it 'cannot create a class if no name is provided' do
       create_teacher
       login
