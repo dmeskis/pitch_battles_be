@@ -88,20 +88,20 @@ end
 users = User.all
 
 users.sample(30).each do |user|
-  dylans_klass.users << user
+  dylans_class.users << user
 end
 
 users.sample(34).each do |user|
-  kevins_klass.users << user
+  kevins_class.users << user
 end
 
 users.sample(26).each do |user|
-  haleys_klass.users << user
+  haleys_class.users << user
 end
 
 # Add games to users
 users.each do |user|
   rand(150).times do
-    create(:game, user_id: user.id)
+    FactoryBot.create(:game, user_id: user.id)
   end
 end
