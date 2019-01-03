@@ -51,8 +51,9 @@ class Klass < ApplicationRecord
                  first
     if most.nil?
       return nil
+    else
+      { badges: most.badges.count, user: BareUserSerializer.new(User.where(id: most.id)) }
     end
-    { badges: most.badges.count, user: BareUserSerializer.new(User.where(id: most.id)) }
   end
 
   def teacher?(instructor)
