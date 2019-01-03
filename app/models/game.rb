@@ -1,5 +1,5 @@
 class Game < ApplicationRecord
-  belongs_to :user, counter_cache: :total_games_played
+  belongs_to :user, counter_cache: :total_games_played, touch: true
   has_many :klass_games
   has_many :klasses, through: :klass_games
   before_save :update_user_scores

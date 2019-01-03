@@ -6,7 +6,9 @@ class TeacherDashboardSerializer
   end
 
   attribute :students do |klass|
-   UserSerializer.new(klass.users)
+    Rails.cache.fetch(klass.users_cache_key(klass.users)) do
+      UserSerializer.new(klass.users)
+    end
   end
 
   attribute :level_one_fastest_time do |klass|

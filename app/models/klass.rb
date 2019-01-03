@@ -34,7 +34,7 @@ class Klass < ApplicationRecord
   
   def most_games
     most = users.maximum(:total_games_played)
-    if most.zero?
+    if most.nil?
       return nil
     else
       { games_played: most, user: BareUserSerializer.new(User.where(total_games_played: most)) }
@@ -51,12 +51,20 @@ class Klass < ApplicationRecord
                  first
     if most.nil?
       return nil
+    else
+      { badges: most.badges.count, user: BareUserSerializer.new(User.where(id: most.id)) }
     end
-    { badges: most.badges.count, user: BareUserSerializer.new(User.where(id: most.id)) }
   end
 
   def teacher?(instructor)
     self.teacher == instructor
+  end
+
+  def users_cache_key(users)
+    {
+      serializer: 'klass_students',
+      stat_record: users.maximum(:updated_at)
+    }
   end
 
   private

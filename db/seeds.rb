@@ -2,8 +2,8 @@ require 'factory_bot_rails'
 require 'database_cleaner'
 
 # Clean database everytime you seed
-DatabaseCleaner.strategy = :truncation
-DatabaseCleaner.clean
+# DatabaseCleaner.strategy = :truncation
+# DatabaseCleaner.clean
 # Create badges
 FactoryBot.create(:badge, id: 2, name: "play 5 games", description: "Play five games." )
 FactoryBot.create(:badge, id: 3, name: "level one: completed", description: "Complete level one.")
@@ -24,21 +24,84 @@ FactoryBot.create(:badge, id: 16, name: "play 500 games", description: "Play fiv
 FactoryBot.create(:badge, id: 17, name: "play 1000 games", description: "Play one-thousand games." )
 
 # Create games and users
-# Factory bot creates a user associated with a game
-10.times do
-  FactoryBot.create(:game)
+
+# Create dev teacher accounts
+
+dylan = User.create(first_name: "Dylan",
+            last_name: "Meskis",
+            email: "dmeskis@gmail.com",
+            role: 1,
+            password: "password",
+            password_confirmation: "password")
+
+kevin = User.create(first_name: "Kevin",
+            last_name: "Simpson",
+            email: "relasine@gmail.com",
+            role: 1,
+            password: "password",
+            password_confirmation: "password")
+
+haley = User.create(first_name: "Haley",
+            last_name: "Jacobs",
+            email: "haleyljacobs@gmail.com",
+            role: 1,
+            password: "password",
+            password_confirmation: "password")
+
+# Create teacher classes
+
+dylans_class = FactoryBot.create(:klass, teacher_id: dylan.id)
+kevins_class = FactoryBot.create(:klass, teacher_id: kevin.id)
+haleys_class = FactoryBot.create(:klass, teacher_id: haley.id)
+
+# Create dev student accounts
+
+User.create(first_name: "Dylan",
+  last_name: "Meskis",
+  email: "dylanstudent@gmail.com",
+  role: 0,
+  password: "password",
+  password_confirmation: "password")
+
+User.create(first_name: "Kevin",
+  last_name: "Simpson",
+  email: "kevinstudent@gmail.com",
+  role: 0,
+  password: "password",
+  password_confirmation: "password")
+
+User.create(first_name: "Haley",
+  last_name: "Jacobs",
+  email: "haleystudent@gmail.com",
+  role: 0,
+  password: "password",
+  password_confirmation: "password")
+
+# Factory bot create users
+
+100.times do
+  FactoryBot.create(:user)
 end
 
-# Create a class
-klass = FactoryBot.create(:klass)
+# Add users to teacher classes
 
-# Add users to class
-User.all.each do |user|
-  user.klass_id = klass.id
+users = User.all
+
+users.sample(30).each do |user|
+  dylans_class.users << user
 end
 
-# Give each user a random badge
-badges = Badge.all
-User.all.each do |user|
-  user.badges << badges.sample
+users.sample(34).each do |user|
+  kevins_class.users << user
+end
+
+users.sample(26).each do |user|
+  haleys_class.users << user
+end
+
+# Add games to users
+users.each do |user|
+  rand(150).times do
+    FactoryBot.create(:game, user_id: user.id)
+  end
 end

@@ -14,6 +14,11 @@ gem 'jwt'
 gem 'simple_command'
 gem 'rack-cors', require: 'rack/cors'
 gem 'figaro'
+gem 'redis-rails'
+gem 'factory_bot_rails'
+gem 'faker'
+gem 'database_cleaner'
+
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -22,8 +27,8 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'pry'
   gem 'simplecov'
-  gem 'factory_bot_rails'
-  gem 'faker'
+  # gem 'factory_bot_rails'
+  # gem 'faker'
   gem 'capybara-email'
 end
 
