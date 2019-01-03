@@ -38,6 +38,8 @@ This API uses JSON Web Tokens (JWT) to authenticate user requests. Every request
 
 **REQUIRES** a header to be sent with a users JWT.
 
+JWTs are generated upon logging in and expire in 2 hours.
+
 The format for the header is as follows:  
 ```
 'AUTHORIZATION': 'bearer <JWT KEY>'
