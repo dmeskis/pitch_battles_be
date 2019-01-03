@@ -117,13 +117,13 @@ describe 'user api', :type => :request do
       game = create(:game)
       user = User.find(game.user_id)
       4.times do
-        create(:game, user_id: user.id)
+        create(:game, user_id: user.id, updated_at: Game.last.updated_at + 1)
       end
       get "/api/v1/users/#{user.id}/games"
       body = JSON.parse(response.body)
       expect(response).to be_successful
       expect(response.status).to eq(200)
-      expect(body["data"]["attributes"]["games"]["data"].count).to eq(5)
+      expect(body["data"]["attributes"]["games"]["data"].count).to eq(user.games.count)
       expect(body["data"]["attributes"]["games"]["data"][0]["id"]).to eq(game.id.to_s)
     end
     it 'errors if user does not exist' do

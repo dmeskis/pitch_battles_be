@@ -5,7 +5,7 @@ class User < ApplicationRecord
   validates_presence_of :first_name,
                         :last_name,
                         :role
-  belongs_to :klass, optional: true
+  belongs_to :klass, optional: true, touch: true
   has_many :games
   has_many :user_badges
   has_many :badges, -> { distinct }, through: :user_badges
@@ -50,6 +50,20 @@ class User < ApplicationRecord
 
   def self.overall_highscores
     order(total_fastest_time: :asc).where.not(total_fastest_time: 0).limit(100)
+  end
+
+  def game_cache_key(games)
+    {
+      serializer: 'user_games',
+      stat_record: games.maximum(:updated_at)
+    }
+  end
+
+  def badge_cache_key(badges)
+    {
+      serializer: 'user_badges',
+      stat_record: badges.maximum(:updated_at)
+    }
   end
   
   private
