@@ -23,7 +23,7 @@ Pitch Battles API is the back-end application handling data and authorization fo
   * [Badges](#badges)  
         - [`GET /api/v1/users/:id/badges`](#-get-apiv1usersidbadges-returns-all-of-a-users-badges)
   * [Classes](#classes)  
-        - [`GET /api/v1/teacher_dashboard`]()
+        - [`GET /api/v1/teacher_dashboard`](#-get-apiv1teacher_dashboard-gets-teacher-dashboard-information-for-current-user)  
         - [`GET /api/v1/class_dashboard`](#-get-apiv1class_dashboard-gets-class-dashboard-information-for-current-user)  
         - [`POST /api/v1/classes`](#-post-apiv1classes-creates-a-class)  
         - [`POST /api/v1/users/:id/classes`](#-post-apiv1usersidclasses-adds-a-user-to-a-class)  
