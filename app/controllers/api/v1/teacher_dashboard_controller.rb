@@ -12,7 +12,7 @@ class Api::V1::TeacherDashboardController < ApplicationController
   end
 
   def show
-    if is_teacher_of_class?(@klass)
+    if @klass.teacher?(@current_user)
       render json: TeacherDashboardSerializer.new(@klass).serialized_json
     else
       render json: {"error": "You must be the teacher of this class to view it"}, status: 401
@@ -21,21 +21,11 @@ class Api::V1::TeacherDashboardController < ApplicationController
 
   private
 
-  def is_teacher?
-    unless @current_user.teacher?
-      render json: {"error": "You must be a teacher to create a class"}, status: 401
-    end
-  end
-
   def class_exists?
     @klass = Klass.find_by(id: params[:id])
     unless @klass
       render json: {"error": "Class not found"}, status: 404
     end
   end
-
-  def is_teacher_of_class?(klass)
-    klass.teacher == @current_user
-  end 
 
 end

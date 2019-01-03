@@ -1,9 +1,9 @@
 class Api::V1::KlassesController < ApplicationController
-  before_action :validate_name_present, only: :create
-  before_action :set_create_variables, only: :create
+  before_action :find_klass, only: :destroy
+  before_action :name_present?, only: :create
   before_action :is_teacher?, only: :create
-  before_action :set_variables, only: :destroy
   before_action :is_class_teacher?, only: :destroy
+  before_action :ready_create, only: :create
   
   def create
     if @klass.save
@@ -27,19 +27,13 @@ class Api::V1::KlassesController < ApplicationController
     params.permit(:name)
   end
 
-  def set_variables
+  def find_klass
     @klass = Klass.where(id: params[:id]).first
   end
 
-  def set_create_variables
+  def ready_create
     @klass = Klass.new(klass_params)
     @klass.teacher_id = @current_user.id
-  end
-
-  def is_teacher?
-    unless @current_user.teacher?
-      render json: {"error": "You must be a teacher to create a class"}, status: 401
-    end
   end
 
   def is_class_teacher?
@@ -48,7 +42,7 @@ class Api::V1::KlassesController < ApplicationController
     end
   end
 
-  def validate_name_present
+  def name_present?
     unless klass_params["name"]
       render json: {"error": "You must enter a class name."}, status: 422
     end

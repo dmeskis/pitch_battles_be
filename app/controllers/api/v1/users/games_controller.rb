@@ -1,5 +1,5 @@
 class Api::V1::Users::GamesController < ApplicationController
-  before_action :set_variables
+  before_action :set_user
 
   def index
     if @user
@@ -7,12 +7,6 @@ class Api::V1::Users::GamesController < ApplicationController
     else
       render json: {"error": "User not found."}, status: 404
     end
-  end
-
-  private
-
-  def set_variables
-    @user = User.where(id: params[:id]).first
   end
 
 end

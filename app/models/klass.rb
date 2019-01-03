@@ -55,6 +55,10 @@ class Klass < ApplicationRecord
     { badges: most.badges.count, user: BareUserSerializer.new(User.where(id: most.id)) }
   end
 
+  def teacher?(instructor)
+    self.teacher == instructor
+  end
+
   private
 
     def create_class_key

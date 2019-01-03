@@ -31,7 +31,7 @@ describe 'game api', :type => :request do
       post "/api/v1/classes", :params => class_body, :headers => {'AUTHORIZATION': "bearer #{key}"}
       parsed = JSON.parse(response.body)
       expect(response.status).to eq(401)
-      expect(parsed["error"]).to eq("You must be a teacher to create a class")
+      expect(parsed["error"]).to eq("Teacher privileges required.")
     end
     it 'cannot create a class if no name is provided' do
       create_teacher
@@ -51,7 +51,6 @@ describe 'game api', :type => :request do
       teacher = User.first
 
       klass = create(:klass, teacher_id: teacher.id)
-
       key = JSON.parse(response.body)["access_token"]
       delete "/api/v1/classes/#{klass.id}", :headers => {'AUTHORIZATION': "bearer #{key}"}
       parsed = JSON.parse(response.body)

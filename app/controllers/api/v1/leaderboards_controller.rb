@@ -1,11 +1,9 @@
 class Api::V1::LeaderboardsController < ApplicationController
-  before_action :get_highscores
+  before_action :get_highscores, only: :index
+  before_action :set_options, only: :index
 
   def index
-    options = {}
-    options[:is_collection] = true
-    options[:params] = {level: leaderboards_params[:type]}
-    render json: LeaderboardSerializer.new(@scores, options).serialized_json, status: 200
+    render json: LeaderboardSerializer.new(@scores, @options).serialized_json, status: 200
   end
 
   private
@@ -29,6 +27,12 @@ class Api::V1::LeaderboardsController < ApplicationController
     else
       render json: {error: "Invalid type supplied."}, status: 422
     end
+  end
+
+  def set_options
+    @options = {}
+    @options[:is_collection] = true
+    @options[:params] = {level: leaderboards_params[:type]}
   end
 
 end

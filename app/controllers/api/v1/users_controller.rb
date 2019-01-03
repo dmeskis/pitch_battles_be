@@ -1,11 +1,11 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :authenticate_request, only: [:create]
   before_action :params_empty?, only: :update
+  before_action :set_user, only: :show
 
   def show
-    user = User.where(id: params[:id]).first
-    if user
-      render json: UserSerializer.new(user).serialized_json, status: 200
+    if @user
+      render json: UserSerializer.new(@user).serialized_json, status: 200
     else
       render json: {"error": "User not found."}, status: 404
     end
@@ -49,7 +49,7 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def params_empty?
-      unless update_params.empty? != true
+      unless update_params.present?
         render json: {error: "No update fields submitted. Resend request with valid update fields."}, status: 422
       end
     end
