@@ -44,7 +44,7 @@ describe 'game api', :type => :request do
       key = JSON.parse(response.body)["access_token"]
       post "/api/v1/classes", :params => class_body, :headers => {'AUTHORIZATION': "bearer #{key}"}
       parsed = JSON.parse(response.body)
-      expect(response.status).to eq(422)
+      expect(response.status).to eq(500)
     end
     it 'cannot create a class if no name is provided' do
       create_teacher
