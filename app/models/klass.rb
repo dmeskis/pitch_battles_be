@@ -34,8 +34,8 @@ class Klass < ApplicationRecord
   
   def most_games
     most = users.maximum(:total_games_played)
-    if most == 0
-      nil
+    if most.zero?
+      return nil
     else
       { games_played: most, user: BareUserSerializer.new(User.where(total_games_played: most)) }
     end
@@ -43,12 +43,12 @@ class Klass < ApplicationRecord
 
   def most_badges
     most = users.select("users.id, count(badges.id) AS badge_count").
-            joins(:user_badges).
-            joins(:badges).
-            group("users.id").
-            order("badge_count DESC").
-            limit(1).
-            first
+                 joins(:user_badges).
+                 joins(:badges).
+                 group("users.id").
+                 order("badge_count DESC").
+                 limit(1).
+                 first
     if most.nil?
       return nil
     end
