@@ -60,6 +60,13 @@ class Klass < ApplicationRecord
     self.teacher == instructor
   end
 
+  def users_cache_key(users)
+    {
+      serializer: 'klass_students',
+      stat_record: users.maximum(:updated_at)
+    }
+  end
+
   private
 
     def create_class_key
