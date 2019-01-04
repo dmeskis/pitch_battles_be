@@ -5,6 +5,9 @@
 Pitch Battles API is the back-end application handling data and authorization for [Pitch Battles](https://github.com/relasine/pitch-battles-frontend).
 
 ### Table of Contents  
+- [Developers](#developers)
+- [Live Links](#live-links)
+- [Setup](#setup)
 - [Authorization](#authorization)
 - [Endpoints](#endpoints)
   * [Games](#games)  
@@ -29,7 +32,44 @@ Pitch Battles API is the back-end application handling data and authorization fo
         - [`POST /api/v1/users/:id/classes`](#-post-apiv1usersidclasses-adds-a-user-to-a-class)  
         - [`DELETE /api/v1/classes/:id`](#-delete-apiv1classesid-deletes-a-class)  
         - [`DELETE /api/v1/users/:id/classes/:klass_id`](#-delete-apiv1usersidclassesklass_id-deletes-a-user-from-a-class)
+  * [Leaderboards](#leaderboards)  
+        - [`GET /api/v1/leaderboards`](#-get-apiv1leaderboards-returns-top-100-scores-for-each-level-specified-by-type)
         
+
+#### Developers
+
+<p align="center">
+    <img src='https://user-images.githubusercontent.com/29719272/50570158-0cc55000-0d3b-11e9-91e3-bc33ab61d933.png' alt='pitch-battles-team' />
+</p>
+
+- [Kevin Simpson](https://github.com/relasine) - lead design, lead front-end development, game logic, test, art asset development, API consumption
+- [Haley Jacobs](https://github.com/hljacobs5) - front-end logic, test, and API consumption, teacher-facing front-end, art asset development
+- [Dylan Meskis](https://github.com/dmeskis) - back-end database, API servicing, game data analysis, schema design, firefighter
+
+## Live Links
+
+Checkout the front-end application here:
+
+https://pitchbattles.herokuapp.com
+
+The back-end application is hosted here:
+
+https://pitch-battles-api.herokuapp.com
+
+## Setup
+
+1. Clone this repo to your local machine  
+2. Change into the project directory  
+3. Run `bundle install` to install the required dependencies  
+4. In the project directory, execute the following command: `bundle exec figaro install`  
+5. This command will generate an application.yml file. At the bottom of this file you will need to save a secret key in the following format: **SECRET_KEY_BASE**: `<secret key>`
+   * `<secret key>` will be a long, randomly generated string used to verify the integrity of signed cookies  
+   * To generate a key, execute `rails secret` in your terminal, then replace `<secret key>` with the resulting string  
+6. Run rails db:{create,migrate} to create the database and run migrations
+   * (Optional) Run rails db:seed to seed the database with some fake default data  
+8. Run `rails server` in your server to start up the server  
+9. The application now live at http://localhost:3000. Append the endpoints below to start making API calls. 
+ 
 ## Authorization
 
 This API uses JSON Web Tokens (JWT) to authenticate user requests. Every request below **EXCEPT** for:  
@@ -56,7 +96,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
 ### Games
 
-###### * `POST /api/v1/games` creates and saves a game to the database
+#### * `POST /api/v1/games` creates and saves a game to the database
   * required body parameters: `{perfect_scores, times}` 
   
 <details><summary>Example request:</summary>
@@ -72,7 +112,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
  </p>
 </details>
-
+&nbsp;
 <details><summary>Example response:</summary>
  
 <p>
@@ -101,7 +141,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
  </p>
 </details>
 
-###### * `GET /api/v1/games/:id` returns a single game by ID  
+#### * `GET /api/v1/games/:id` returns a single game by ID  
 
 <details><summary>Example response:</summary>
  
@@ -131,7 +171,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
     </p>
 </details>
 
-###### * `GET /api/v1/users/:id/games` returns all users games  
+#### * `GET /api/v1/users/:id/games` returns all users games  
 
 <details><summary>Example response:</summary>
  
@@ -192,7 +232,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
 ### Users
 
-###### * `POST /api/v1/users` creates a user
+#### * `POST /api/v1/users` creates a user
   * required body parameters: `{email, first_name, last_name, role, password, password_confirmation}`  
   
 <details><summary>Example request:</summary>
@@ -212,7 +252,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
  </p>
 </details>
-
+&nbsp;
 <details><summary>Example response:</summary>
  
 <p>
@@ -226,7 +266,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
  </p>
 </details>
 
-###### * `POST /login` logs in a user
+#### * `POST /login` logs in a user
   * required body parameters: `{email, password}`  
   
 <details><summary>Example request:</summary>
@@ -242,7 +282,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
  </p>
 </details>
-
+&nbsp;
 <details><summary>Example response:</summary>
  
 <p>
@@ -265,7 +305,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
  </p>
 </details>
 
-###### * `GET /api/v1/dashboard` returns the logged in user's data (bearer of JWT)
+#### * `GET /api/v1/dashboard` returns the logged in user's data (bearer of JWT)
 
 <details><summary>Example response:</summary>
  
@@ -329,7 +369,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
   </p>
 </details>
  
-###### * `GET /api/v1/users/:id` returns a specific user's data  
+#### * `GET /api/v1/users/:id` returns a specific user's data  
 
 <details><summary>Example response:</summary>
  
@@ -400,7 +440,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
  </p>
 </details>
 
-###### * `PATCH /api/v1/users` updates a user's attributes
+#### * `PATCH /api/v1/users` updates a user's attributes
   * required body parameters: `{current_password}`
   * optional body parameters: `{email, first_name, last_name, avatar, password}`  
   
@@ -419,7 +459,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
  </p>
 </details>
-
+&nbsp;
 <details><summary>Example response:</summary>
  
 <p>
@@ -453,7 +493,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
 ### Password Reset
 
-###### * `POST /password/forgot` sends an email to the user with a reset password token
+#### * `POST /password/forgot` sends an email to the user with a reset password token
   * required body parameters: `{email}`
   
 <details><summary>Example request:</summary>
@@ -468,7 +508,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
  </p>
 </details>
-
+&nbsp;
 <details><summary>Example response:</summary>
  
 <p>
@@ -482,7 +522,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
  </p>
 </details>
 
-###### * `POST /password/reset` resets the users password
+#### * `POST /password/reset` resets the users password
     * required body parameters: `{token, password}`
     
 <details><summary>Example request:</summary>
@@ -498,8 +538,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
  </p>
 </details>
-
-
+&nbsp;
 <details><summary>Example response:</summary>
  
 <p>
@@ -515,7 +554,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
 ### Badges
 
-###### * `GET /api/v1/users/:id/badges` returns all of a users badges  
+#### * `GET /api/v1/users/:id/badges` returns all of a users badges  
 
 <details><summary>Example response:</summary>
  
@@ -560,7 +599,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
 ### Classes
 
-###### * `GET /api/v1/teacher_dashboard` gets teacher dashboard information for current user
+#### * `GET /api/v1/teacher_dashboard` gets teacher dashboard information for current user
 
 <details><summary>Example response:</summary>
  
@@ -847,7 +886,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
  </p>
 </details>
 
-###### * `GET /api/v1/class_dashboard` gets class dashboard information for current user
+#### * `GET /api/v1/class_dashboard` gets class dashboard information for current user
 
 <details><summary>Example response:</summary>
  
@@ -1049,7 +1088,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
  </p>
 </details>
 
-###### * `POST /api/v1/classes` creates a class
+#### * `POST /api/v1/classes` creates a class
 
 <details><summary>Example request:</summary>
  
@@ -1063,7 +1102,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
  </p>
 </details>
-
+&nbsp;
 <details><summary>Example response:</summary>
  
 <p>
@@ -1084,7 +1123,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
  </p>
 </details>
 
-###### * `POST /api/v1/users/:id/classes` adds a user to a class
+#### * `POST /api/v1/users/:id/classes` adds a user to a class
 
 <details><summary>Example request:</summary>
  
@@ -1098,7 +1137,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
  </p>
 </details>
-
+&nbsp;
 <details><summary>Example response:</summary>
  
 <p>
@@ -1112,7 +1151,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
  </p>
 </details>
 
-###### * `DELETE /api/v1/classes/:id` deletes a class
+#### * `DELETE /api/v1/classes/:id` deletes a class
   * User **MUST** be the teacher who created the class to delete a class
 
 
@@ -1130,7 +1169,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
  </p>
 </details>
 
-###### * `DELETE /api/v1/users/:id/classes/:klass_id` deletes a user from a class
+#### * `DELETE /api/v1/users/:id/classes/:klass_id` deletes a user from a class
   * User making the request **MUST** be a teacher or a student attempting to remove themselves from a class.
   
 <details><summary>Example response:</summary>
@@ -1148,7 +1187,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
 ### Leaderboards
 
-###### * `GET /api/v1/leaderboards` returns top 100 scores for each level specified by type
+#### * `GET /api/v1/leaderboards` returns top 100 scores for each level specified by type
  * must specify which level you wish to retrieve the highscores for in the body of the request
  * valid fields: {'level_one', 'level_two', 'level_three', 'level_four', 'overall'}
  
@@ -1164,7 +1203,7 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
  </p>
 </details>
-
+&nbsp;
 <details><summary>Example response:</summary>
  
 <p>
