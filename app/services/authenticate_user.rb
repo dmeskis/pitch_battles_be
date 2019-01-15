@@ -4,7 +4,7 @@ class AuthenticateUser
 
   #this is where parameters are taken when the command is called
   def initialize(email, password)
-    @email = email
+    @email = email.downcase
     @password = password
   end
   

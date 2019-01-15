@@ -7,7 +7,7 @@ class PasswordsController < ApplicationController
       return render json: {error: 'Email not present'}
     end
 
-    user = User.find_by(email: params[:email])
+    user = User.find_by(email: params[:email].downcase)
 
     if user.present?
       user.generate_password_token!
