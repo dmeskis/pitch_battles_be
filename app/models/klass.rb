@@ -37,7 +37,7 @@ class Klass < ApplicationRecord
     if most.nil?
       return nil
     else
-      { games_played: most, user: BareUserSerializer.new(User.where(total_games_played: most)) }
+      { games_played: most, user: BareUserSerializer.new(users.where(total_games_played: most)) }
     end
   end
 
@@ -52,7 +52,7 @@ class Klass < ApplicationRecord
     if most.nil?
       return nil
     else
-      { badges: most.badges.count, user: BareUserSerializer.new(User.where(id: most.id)) }
+      { badges: most.badges.count, user: BareUserSerializer.new(users.where(id: most.id)) }
     end
   end
 
