@@ -54,32 +54,9 @@ dylans_class = FactoryBot.create(:klass, teacher_id: dylan.id)
 kevins_class = FactoryBot.create(:klass, teacher_id: kevin.id)
 haleys_class = FactoryBot.create(:klass, teacher_id: haley.id)
 
-# Create dev student accounts
-
-User.create(first_name: "Dylan",
-  last_name: "Meskis",
-  email: "dylanstudent@gmail.com",
-  role: 0,
-  password: "password",
-  password_confirmation: "password")
-
-User.create(first_name: "Kevin",
-  last_name: "Simpson",
-  email: "kevinstudent@gmail.com",
-  role: 0,
-  password: "password",
-  password_confirmation: "password")
-
-User.create(first_name: "Haley",
-  last_name: "Jacobs",
-  email: "haleystudent@gmail.com",
-  role: 0,
-  password: "password",
-  password_confirmation: "password")
-
 # Factory bot create users
 
-100.times do
+50.times do
   FactoryBot.create(:user)
 end
 
@@ -87,21 +64,21 @@ end
 
 users = User.all
 
-users.sample(30).each do |user|
+users.sample(12).each do |user|
   dylans_class.users << user
 end
 
-users.sample(34).each do |user|
+users.sample(22).each do |user|
   kevins_class.users << user
 end
 
-users.sample(26).each do |user|
+users.sample(19).each do |user|
   haleys_class.users << user
 end
 
 # Add games to users
 users.each do |user|
-  rand(150).times do
+  rand(25).times do
     FactoryBot.create(:game, user_id: user.id)
   end
 end

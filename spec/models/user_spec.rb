@@ -56,7 +56,8 @@ RSpec.describe User, type: :model do
         create(:game, user_id: user.id)
       end
 
-      expect(user.games.count).to eq(num_games)
+      user = User.find(user.id)
+      expect(user.total_games_played).to eq(num_games)
     end
     it 'downcases email on create' do
       user = User.new(email: "TEST@MAIL.com",
