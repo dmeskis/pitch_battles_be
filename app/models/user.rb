@@ -10,7 +10,7 @@ class User < ApplicationRecord
   has_many :user_badges
   has_many :badges, -> { distinct }, through: :user_badges
   enum role: [:student, :teacher]
-  before_save :downcase_email
+  before_validation :downcase_email
 
   def downcase_email
     self.email.downcase! unless self.email.nil?
@@ -55,14 +55,14 @@ class User < ApplicationRecord
   def game_cache_key(games)
     {
       serializer: 'user_games',
-      stat_record: games.maximum(:updated_at)
+      stat_record: games.maximum(:updated_at).to_f
     }
   end
 
   def badge_cache_key(badges)
     {
       serializer: 'user_badges',
-      stat_record: badges.maximum(:updated_at)
+      stat_record: badges.maximum(:updated_at).to_f
     }
   end
   

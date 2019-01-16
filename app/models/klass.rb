@@ -63,7 +63,7 @@ class Klass < ApplicationRecord
   def users_cache_key(users)
     {
       serializer: 'klass_students',
-      stat_record: users.maximum(:updated_at)
+      stat_record: users.maximum(:updated_at).to_f
     }
   end
 

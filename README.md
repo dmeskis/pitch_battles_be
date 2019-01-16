@@ -26,7 +26,8 @@ Pitch Battles API is the back-end application handling data and authorization fo
   * [Badges](#badges)  
         - [`GET /api/v1/users/:id/badges`](#-get-apiv1usersidbadges-returns-all-of-a-users-badges)
   * [Classes](#classes)  
-        - [`GET /api/v1/teacher_dashboard`](#-get-apiv1teacher_dashboard-gets-teacher-dashboard-information-for-current-user)  
+        - [`GET /api/v1/teacher_dashboard`](#-get-apiv1teacher_dashboard-gets-a-list-of-teacher-classes)  
+        - [`GET /api/v1/teacher_dashboard/classes/:id`](#-get-apiv1teacher_dashboardclassesid-gets-teacher-dashboard-information-for-class-by-id)  
         - [`GET /api/v1/class_dashboard`](#-get-apiv1class_dashboard-gets-class-dashboard-information-for-current-user)  
         - [`POST /api/v1/classes`](#-post-apiv1classes-creates-a-class)  
         - [`POST /api/v1/users/:id/classes`](#-post-apiv1usersidclasses-adds-a-user-to-a-class)  
@@ -599,7 +600,32 @@ For more info on JWT, pease visit [https://jwt.io/introduction/](https://jwt.io/
 
 ### Classes
 
-#### * `GET /api/v1/teacher_dashboard` gets teacher dashboard information for current user
+#### * `GET /api/v1/teacher_dashboard` gets a list of teacher classes
+
+<details><summary>Example response:</summary>
+ 
+<p>
+ 
+```
+{
+    "data": [
+        {
+            "id": "2",
+            "type": "klass",
+            "attributes": {
+                "id": 2,
+                "name": "Jazz Band",
+                "class_key": "i9htznV1qWVcaguu8P5RFw"
+            }
+        }
+    ]
+}
+```
+
+ </p>
+</details>
+
+#### * `GET /api/v1/teacher_dashboard/classes/:id` gets teacher dashboard information for class by id
 
 <details><summary>Example response:</summary>
  
