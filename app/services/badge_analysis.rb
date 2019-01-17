@@ -6,10 +6,7 @@ class BadgeAnalysis
   end
 
   def analyze
-    unearned_badges = (@user.badges + badge_list) - (@user.badges & badge_list).sort
-    unearned_badges.each do |badge|
-      badge_earned?(badge)
-    end
+    unearned_badges.each { |badge| badge_earned?(badge) }
   end
 
   def badge_earned?(badge)
@@ -55,6 +52,10 @@ class BadgeAnalysis
 
   def badge_list
     Badge.all
+  end
+
+  def unearned_badges
+    (@user.badges + badge_list) - (@user.badges & badge_list).sort
   end
 
 end
