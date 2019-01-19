@@ -3,7 +3,7 @@ class Game < ApplicationRecord
   has_many :klass_games
   has_many :klasses, through: :klass_games
   before_save :update_user_scores
-  before_save :analyze_badges
+  after_save :analyze_badges
 
   def update_user_scores
     if level_one_duration.present?
