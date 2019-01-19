@@ -13,7 +13,6 @@ class Api::V1::GamesController < ApplicationController
   def create
     game = create_game
     if game.save
-      BadgeAnalysis.new(game).analyze
       render json: GameSerializer.new(game).serialized_json, status: 200
     else
       render json: {"error": "Failed to save game. Check error logs."}, status: 500

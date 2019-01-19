@@ -3,6 +3,7 @@ class Game < ApplicationRecord
   has_many :klass_games
   has_many :klasses, through: :klass_games
   before_save :update_user_scores
+  before_save :analyze_badges
 
   def update_user_scores
     if level_one_duration.present?
@@ -21,6 +22,12 @@ class Game < ApplicationRecord
       if user.total_fastest_time.zero? || user.total_fastest_time > total_duration then user.total_fastest_time = total_duration end
     end
     user.save
+  end
+
+  private
+
+  def analyze_badges
+    BadgeAnalysis.new(self).analyze
   end
 
 end
