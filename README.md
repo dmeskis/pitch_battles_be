@@ -75,7 +75,9 @@ https://pitch-battles-api.herokuapp.com
 
 This API uses JSON Web Tokens (JWT) to authenticate user requests. Every request below **EXCEPT** for:  
 1. POST /api/v1/users
-2. POST /login  
+2. POST /login
+3. POST /password/forgot
+4. POST /password/reset  
 
 **REQUIRES** a header to be sent with a users JWT.
 
